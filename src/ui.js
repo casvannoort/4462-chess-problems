@@ -1,20 +1,21 @@
 // UI/DOM manipulation functions
 import { getRandomQuote } from "./quotes.js";
+import { DOM_IDS } from "./constants.js";
 
 // Cache DOM elements
 let elements = null;
 
 function cacheElements() {
   elements = {
-    board: document.getElementById("board"),
-    boardWrapper: document.getElementById("board-wrapper"),
-    problemTitle: document.getElementById("problem-title"),
-    problemInput: document.getElementById("problem-input"),
-    nextBtn: document.getElementById("next-btn"),
-    puzzleNav: document.getElementById("puzzle-nav"),
-    goBtn: document.getElementById("go-btn"),
-    quoteToast: document.getElementById("quote-toast"),
-    quoteText: document.getElementById("quote-text"),
+    board: document.getElementById(DOM_IDS.BOARD),
+    boardWrapper: document.getElementById(DOM_IDS.BOARD_WRAPPER),
+    problemTitle: document.getElementById(DOM_IDS.PROBLEM_TITLE),
+    problemInput: document.getElementById(DOM_IDS.PROBLEM_INPUT),
+    nextBtn: document.getElementById(DOM_IDS.NEXT_BTN),
+    puzzleNav: document.getElementById(DOM_IDS.PUZZLE_NAV),
+    goBtn: document.getElementById(DOM_IDS.GO_BTN),
+    quoteToast: document.getElementById(DOM_IDS.QUOTE_TOAST),
+    quoteText: document.getElementById(DOM_IDS.QUOTE_TEXT),
   };
   return elements;
 }

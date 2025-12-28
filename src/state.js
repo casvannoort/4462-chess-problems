@@ -1,4 +1,6 @@
 // Centralized state management
+import { STORAGE_KEYS } from "./constants.js";
+
 const state = {
   game: null,
   board: null,
@@ -6,8 +8,6 @@ const state = {
   currentProblemId: null,
   urlParameters: {},
 };
-
-const STORAGE_KEY = "lastProblemId";
 
 function getState() {
   return state;
@@ -19,13 +19,13 @@ function setState(updates) {
 
 function saveToStorage() {
   if (state.currentProblemId) {
-    localStorage.setItem(STORAGE_KEY, state.currentProblemId);
+    localStorage.setItem(STORAGE_KEYS.LAST_PROBLEM_ID, state.currentProblemId);
   }
 }
 
 function loadFromStorage() {
-  const savedId = parseInt(localStorage.getItem(STORAGE_KEY));
+  const savedId = parseInt(localStorage.getItem(STORAGE_KEYS.LAST_PROBLEM_ID));
   return savedId && savedId >= 1 ? savedId : null;
 }
 
-export { state, getState, setState, saveToStorage, loadFromStorage, STORAGE_KEY };
+export { state, getState, setState, saveToStorage, loadFromStorage };

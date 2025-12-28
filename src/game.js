@@ -1,6 +1,5 @@
 // Pure game logic functions (no DOM manipulation)
-import * as ChessModule from "chess.js";
-const Chess = ChessModule.Chess || ChessModule.default || ChessModule;
+import { Chess } from "chess.js";
 
 /**
  * Parse move string format "e2-e4" or "e7-e8q" (with promotion)
@@ -40,7 +39,7 @@ function getColorIndicator(firstMove) {
 function wouldBeCheckmate(fen, from, to, promotion) {
   const testGame = new Chess(fen);
   const moveResult = testGame.move({ from, to, promotion });
-  return moveResult && testGame.in_checkmate();
+  return moveResult && testGame.isCheckmate();
 }
 
 /**

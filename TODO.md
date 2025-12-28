@@ -8,11 +8,11 @@
 
 ## 2. JavaScript Quality
 
-- [ ] **Replace var with const/let** - Lines 81-84, 224 still use `var`
-- [ ] **Cache DOM element references** - Stop querying `document.querySelector("#problem-title")` multiple times
-- [ ] **Create DOM_IDS constants** - Replace magic strings like `"next-btn"`, `"puzzle-nav"`
-- [ ] **Use problems.length** - Replace hardcoded `TOTAL_PROBLEMS = 4462`
-- [ ] **Upgrade chess.js to v1.x** - Remove import hack `ChessModule.Chess || ChessModule.default`
+- [x] **Replace var with const/let** - Lines 81-84, 224 still use `var`
+- [x] **Cache DOM element references** - Stop querying `document.querySelector("#problem-title")` multiple times
+- [x] **Create DOM_IDS constants** - Replace magic strings like `"next-btn"`, `"puzzle-nav"`
+- [x] **Use problems.length** - Replace hardcoded `TOTAL_PROBLEMS = 4462`
+- [x] **Upgrade chess.js to v1.x** - Remove import hack `ChessModule.Chess || ChessModule.default`
 
 ## 3. Performance
 
@@ -62,9 +62,9 @@
 
 ## Quick Wins (< 1 hour each)
 
-- [ ] Replace `var` with `const`/`let`
-- [ ] Use `problems.length` instead of hardcoded 4462
-- [ ] Cache DOM element references
+- [x] Replace `var` with `const`/`let`
+- [x] Use `problems.length` instead of hardcoded 4462
+- [x] Cache DOM element references
 - [ ] Add `aria-label` to buttons
 - [ ] Replace inline `style="display:none"` with `hidden` class
 

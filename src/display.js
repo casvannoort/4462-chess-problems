@@ -44,7 +44,7 @@ function inputHandler(event) {
     const src = event.squareFrom;
     const tgt = event.squareTo;
 
-    if (state.game.in_checkmate()) {
+    if (state.game.isCheckmate()) {
       return false;
     }
 
@@ -150,7 +150,7 @@ function setupKeyboardNavigation() {
     if (e.code === "Space" || e.code === "ArrowRight" || e.code === "ArrowLeft") {
       e.preventDefault();
 
-      if (e.code === "Space" && state.game && state.game.in_checkmate()) {
+      if (e.code === "Space" && state.game && state.game.isCheckmate()) {
         nextProblem();
       } else if (e.code === "ArrowRight") {
         nextProblem();

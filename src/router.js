@@ -1,6 +1,7 @@
 // URL and routing logic
 import URI from "urijs";
 import { state } from "./state.js";
+import { STORAGE_KEYS } from "./constants.js";
 
 function getUrlParameters() {
   return new URI(window.location.href).search(true);
@@ -34,7 +35,7 @@ function getInitialProblemId(problems) {
   }
 
   // Then check localStorage
-  const savedId = parseInt(localStorage.getItem("lastProblemId"));
+  const savedId = parseInt(localStorage.getItem(STORAGE_KEYS.LAST_PROBLEM_ID));
   if (savedId && savedId >= 1 && savedId <= totalProblems) {
     return savedId;
   }
