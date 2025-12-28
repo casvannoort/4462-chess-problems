@@ -119,29 +119,40 @@ async function previousProblem() {
 
 async function changeProblem(direction) {
   const newId = state.currentProblemId + direction;
-  if (newId >= 1 && newId <= totalProblems) {
-    try {
-      const problem = await getProblem(newId);
-      loadProblem(problem);
-      pushState(newId);
-      preloadAdjacent(newId);
-    } catch (error) {
-      showError("Puzzel laden mislukt");
-    }
+  if (newId < 1 || newId > totalProblems) {
+    return;
   }
+  try {
+    const problem = await getProblem(newId);
+    if (!problem) {
+      return;
+    }
+    loadProblem(problem);
+    pushState(newId);
+  } catch (error) {
+    console.error("Failed to change puzzle:", error);
+  }
+  // Preload adjacent chunks (don't await, don't show errors)
+  preloadAdjacent(newId).catch(() => {});
 }
 
 async function goToProblem(id) {
-  if (id >= 1 && id <= totalProblems) {
-    try {
-      const problem = await getProblem(id);
-      loadProblem(problem);
-      pushState(id);
-      preloadAdjacent(id);
-    } catch (error) {
-      showError("Puzzel laden mislukt");
-    }
+  if (!id || id < 1 || id > totalProblems) {
+    return;
   }
+  try {
+    const problem = await getProblem(id);
+    if (!problem) {
+      console.error("Problem not found:", id);
+      return;
+    }
+    loadProblem(problem);
+    pushState(id);
+  } catch (error) {
+    console.error("Failed to load puzzle:", error);
+  }
+  // Preload adjacent chunks (don't await, don't show errors)
+  preloadAdjacent(id).catch(() => {});
 }
 
 // --- Load Problem ---
@@ -196,8 +207,14 @@ function setupKeyboardNavigation() {
 function setupPopstateHandler() {
   window.onpopstate = async (event) => {
     if (event.state && "id" in event.state) {
-      const problem = await getProblem(event.state["id"]);
-      loadProblem(problem, false);
+      try {
+        const problem = await getProblem(event.state["id"]);
+        if (problem) {
+          loadProblem(problem, false);
+        }
+      } catch (error) {
+        console.error("Failed to load puzzle from history:", error);
+      }
     }
   };
 }
