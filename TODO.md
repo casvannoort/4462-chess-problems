@@ -41,22 +41,17 @@
 - [ ] **Add focus indicators** - `focus-visible:ring-2` on custom buttons
 - [ ] **Add skip link** - Skip to main content for keyboard users
 
-## 7. Data Structure
-
-- [ ] **Simplify problem format** - Change `"first": "White to Move"` to `"white": true`
-- [ ] **Use standard notation** - Change `"f6-g7"` to algebraic `"Qg7#"`
-
-## 8. Developer Experience
+## 7. Developer Experience
 
 - [ ] **Add TypeScript** - Type safety for game logic and state
 - [ ] **Add ESLint/Prettier** - Code style enforcement with pre-commit hooks
 - [ ] **Add unit tests** - Vitest for game logic (move validation, checkmate detection)
 - [ ] **Update package.json** - Fix repo URL and metadata
 
-## 9. Security
+## 8. Security
 
 - [ ] **Add CSP headers** - Content-Security-Policy in nginx.conf
-- [ ] **Self-host Tailwind** - Remove external CDN dependency
+- [x] **Self-host Tailwind** - Remove external CDN dependency
 
 ---
 
