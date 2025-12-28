@@ -1,6 +1,7 @@
 *~
 dist/
 stockfish.exe
+.venv/
 
 ### node
 
