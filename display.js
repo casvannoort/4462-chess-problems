@@ -216,7 +216,8 @@ function next(problem = problems[0], useAnimation = true) {
   document.getElementById("next-btn").style.display = "none";
   currentProblemId = problem.problemid;
   localStorage.setItem(STORAGE_KEY, currentProblemId);
-  const moveCount = problem.type.endsWith("One") ? "1" : problem.type.match(/\d+/)?.[0] || "";
+  const wordToNum = { "One": "1", "Two": "2", "Three": "3" };
+  const moveCount = wordToNum[problem.type.split(" ").pop()] || "";
   const moveIndicator = problem.first === "White to Move" ? "Wit" : "Zwart";
   var problem_title = `<span class="text-slate-400">#${problem.problemid}</span> Mat in ${moveCount} · <span class="text-accent-blue">${moveIndicator}</span>`;
   document.title = `#${problem.problemid}`;

@@ -27,6 +27,8 @@ COPY --from=builder /app/index.html /usr/share/nginx/html/
 COPY --from=builder /app/dist /usr/share/nginx/html/dist/
 COPY --from=builder /app/node_modules/cm-chessboard/assets /usr/share/nginx/html/node_modules/cm-chessboard/assets/
 COPY --from=builder /app/problems.json /usr/share/nginx/html/
+COPY --from=builder /app/manifest.json /usr/share/nginx/html/
+COPY --from=builder /app/icons /usr/share/nginx/html/icons/
 
 # Copy nginx config for SPA support
 COPY nginx.conf /etc/nginx/conf.d/default.conf

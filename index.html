@@ -1,9 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Puzzle Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Schaakpuzzels</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366F1">
+
+    <!-- iOS PWA support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Schaak">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -137,7 +147,7 @@
         }
     </style>
 </head>
-<body class="bg-cream-100 min-h-screen font-sans text-slate-700 antialiased overflow-hidden">
+<body class="bg-cream-100 min-h-screen font-sans text-slate-700 antialiased">
 
     <!-- Main Container -->
     <main class="h-screen flex flex-col items-center justify-center p-2 md:p-4">
@@ -182,7 +192,7 @@
                         id="problem-input"
                         min="1"
                         max="4462"
-                        class="input-chess w-14 px-2 py-1.5 bg-white border-2 border-cream-300 rounded-full text-slate-700 text-xs text-center font-bold transition-all duration-200"
+                        class="input-chess w-20 px-2 py-1.5 bg-white border-2 border-cream-300 rounded-full text-slate-700 text-xs text-center font-bold transition-all duration-200"
                         placeholder="1"
                     />
                     <button
