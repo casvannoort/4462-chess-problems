@@ -16,14 +16,14 @@
 
 ## 3. Performance
 
-- [ ] **Lazy-load puzzles** - Don't bundle all 670KB JSON at startup, paginate or load on demand
-- [ ] **Build Tailwind at compile time** - Replace CDN with PurgeCSS build (~10KB vs full framework)
-- [ ] **Add service worker** - Enable offline support for PWA
-- [ ] **Code splitting** - Split vendor chunks from main bundle (currently 744KB)
+- [x] **Lazy-load puzzles** - Don't bundle all 670KB JSON at startup, paginate or load on demand
+- [x] **Build Tailwind at compile time** - Replace CDN with PurgeCSS build (~10KB vs full framework)
+- [x] **Add service worker** - Enable offline support for PWA
+- [x] **Code splitting** - Split vendor chunks from main bundle (currently 744KB)
 
 ## 4. Build System
 
-- [ ] **Use HtmlWebpackPlugin** - Remove Dockerfile `sed` hack for hash replacement
+- [x] **Use HtmlWebpackPlugin** - Remove Dockerfile `sed` hack for hash replacement
 - [ ] **Separate webpack configs** - Create dev/prod configs with `webpack-merge`
 - [ ] **Enable source maps** - Add for development, optional for production
 
@@ -71,7 +71,7 @@
 ## Bigger Refactors
 
 - [x] Split display.js into modules
-- [ ] Add HtmlWebpackPlugin
-- [ ] Implement puzzle lazy-loading
-- [ ] Build Tailwind at compile time
-- [ ] Add service worker for offline
+- [x] Add HtmlWebpackPlugin
+- [x] Implement puzzle lazy-loading
+- [x] Build Tailwind at compile time
+- [x] Add service worker for offline

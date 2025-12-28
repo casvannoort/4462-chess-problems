@@ -15,20 +15,15 @@ COPY . .
 # Build the webpack bundle
 RUN npm run start
 
-# Update HTML with the hashed filename
-RUN HASH=$(ls dist/chess-puzzle-player.*.js | sed 's/.*chess-puzzle-player\.\(.*\)\.js/\1/') && \
-    sed -i "s/chess-puzzle-player\.HASH\.js/chess-puzzle-player.${HASH}.js/" index.html
-
 # Production stage
 FROM nginx:alpine
 
-# Copy static files to nginx
-COPY --from=builder /app/index.html /usr/share/nginx/html/
-COPY --from=builder /app/dist /usr/share/nginx/html/dist/
+# Copy built files to nginx (dist includes puzzles folder)
+COPY --from=builder /app/dist /usr/share/nginx/html/
 COPY --from=builder /app/node_modules/cm-chessboard/assets /usr/share/nginx/html/node_modules/cm-chessboard/assets/
-COPY --from=builder /app/problems.json /usr/share/nginx/html/
 COPY --from=builder /app/manifest.json /usr/share/nginx/html/
 COPY --from=builder /app/icons /usr/share/nginx/html/icons/
+COPY --from=builder /app/sw.js /usr/share/nginx/html/
 
 # Copy nginx config for SPA support
 COPY nginx.conf /etc/nginx/conf.d/default.conf

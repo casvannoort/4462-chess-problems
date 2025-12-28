@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream-50: #FFFDF7;
+  --color-cream-100: #FFF9E6;
+  --color-cream-200: #FFF3D0;
+  --color-cream-300: #FFE9B0;
+  --color-cream-400: #FFD580;
+
+  --color-success-50: #ECFDF5;
+  --color-success-100: #D1FAE5;
+  --color-success-500: #10B981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+
+  --color-accent-blue: #6366F1;
+  --color-accent-purple: #8B5CF6;
+  --color-accent-pink: #EC4899;
+  --color-accent-orange: #F97316;
+
+  --color-fun-yellow: #FBBF24;
+  --color-fun-green: #34D399;
+  --color-fun-blue: #60A5FA;
+  --color-fun-red: #F87171;
+
+  --font-display: "Source Serif 4", serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+  --animate-slide-up: slideUp 0.4s ease-out forwards;
+  --animate-bounce-subtle: bounceSubtle 0.5s ease-out;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounceSubtle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #F3F0EB;
+}
+::-webkit-scrollbar-thumb {
+    background: #D4CFC5;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #B8B3A9;
+}
+
+/* Board container shadow */
+.board-shadow {
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.07),
+        0 10px 20px -5px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+/* Input focus ring */
+.input-chess:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    border-color: #3B82F6;
+}
+
+/* Solved state celebration */
+.solved-celebration {
+    animation: celebratePulse 0.5s ease-out;
+}
+@keyframes celebratePulse {
+    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+    100% { box-shadow: 0 0 30px 8px rgba(34, 197, 94, 0); }
+}
+
+/* Stagger animations */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+
+/* Override cm-chessboard default styles */
+.cm-chessboard .board {
+    border-radius: 6px;
+}
+
+/* Success badge animation */
+.success-badge {
+    animation: badgePop 0.3s ease-out;
+}
+@keyframes badgePop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

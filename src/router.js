@@ -25,9 +25,7 @@ function pushState(problemId) {
   }
 }
 
-function getInitialProblemId(problems) {
-  const totalProblems = problems.length;
-
+function getInitialProblemId(totalProblems) {
   // First check URL parameter
   const urlId = state.urlParameters["id"];
   if (urlId && urlId <= totalProblems && urlId > 0) {

@@ -1,11 +1,11 @@
 // Main orchestrator - imports and coordinates all modules
 import { Chessboard, INPUT_EVENT_TYPE, COLOR } from "cm-chessboard";
 import { Markers, MARKER_TYPE } from "cm-chessboard/src/extensions/markers/Markers.js";
-import problemsData from "../problems.json";
 
 import { state, setState, saveToStorage } from "./state.js";
 import { parseMove, getMoveCount, getColorIndicator, wouldBeCheckmate, createGame, getTurnColor } from "./game.js";
 import { initUrlParameters, pushState, getInitialProblemId } from "./router.js";
+import { getProblem, getTotalProblems, preloadAdjacent } from "./puzzleLoader.js";
 import {
   cacheElements,
   getElements,
@@ -20,8 +20,7 @@ import {
   setProblemInputHandler,
 } from "./ui.js";
 
-const problems = problemsData.problems;
-const TOTAL_PROBLEMS = problems.length;
+let totalProblems = 4462; // Will be updated from manifest
 
 // --- Move Execution ---
 
@@ -91,26 +90,30 @@ function onPuzzleSolved() {
 
 // --- Navigation ---
 
-function nextProblem() {
-  changeProblem(1);
+async function nextProblem() {
+  await changeProblem(1);
 }
 
-function previousProblem() {
-  changeProblem(-1);
+async function previousProblem() {
+  await changeProblem(-1);
 }
 
-function changeProblem(direction) {
+async function changeProblem(direction) {
   const newId = state.currentProblemId + direction;
-  if (newId >= 1 && newId <= TOTAL_PROBLEMS) {
-    loadProblem(problems[newId - 1]);
+  if (newId >= 1 && newId <= totalProblems) {
+    const problem = await getProblem(newId);
+    loadProblem(problem);
     pushState(newId);
+    preloadAdjacent(newId);
   }
 }
 
-function goToProblem(id) {
-  if (id >= 1 && id <= TOTAL_PROBLEMS) {
-    loadProblem(problems[id - 1]);
+async function goToProblem(id) {
+  if (id >= 1 && id <= totalProblems) {
+    const problem = await getProblem(id);
+    loadProblem(problem);
     pushState(id);
+    preloadAdjacent(id);
   }
 }
 
@@ -164,18 +167,22 @@ function setupKeyboardNavigation() {
 // --- Browser History ---
 
 function setupPopstateHandler() {
-  window.onpopstate = (event) => {
+  window.onpopstate = async (event) => {
     if (event.state && "id" in event.state) {
-      loadProblem(problems[event.state["id"] - 1], false);
+      const problem = await getProblem(event.state["id"]);
+      loadProblem(problem, false);
     }
   };
 }
 
 // --- Initialize ---
 
-function init() {
+async function init() {
   cacheElements();
   initUrlParameters();
+
+  // Get total problems from manifest
+  totalProblems = await getTotalProblems();
 
   // Create the board
   const board = new Chessboard(getElements().board, {
@@ -193,9 +200,11 @@ function init() {
   setState({ board });
 
   // Load initial problem
-  const initialProblemId = getInitialProblemId(problems);
-  loadProblem(problems[initialProblemId - 1], false);
+  const initialProblemId = getInitialProblemId(totalProblems);
+  const initialProblem = await getProblem(initialProblemId);
+  loadProblem(initialProblem, false);
   pushState(initialProblemId);
+  preloadAdjacent(initialProblemId);
 
   // Setup event handlers
   setGoButtonHandler(() => goToProblem(getProblemInputValue()));
