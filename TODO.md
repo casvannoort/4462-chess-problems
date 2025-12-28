@@ -2,9 +2,9 @@
 
 ## 1. Code Architecture
 
-- [ ] **Split display.js into modules** - Separate into `game.js`, `ui.js`, `quotes.js`, `router.js`
-- [ ] **Create single state object** - Replace global `var game, correct_moves, currentProblemId, board` with state pattern
-- [ ] **Separate pure functions from side effects** - Game logic shouldn't touch DOM directly
+- [x] **Split display.js into modules** - Separate into `game.js`, `ui.js`, `quotes.js`, `router.js`
+- [x] **Create single state object** - Replace global `var game, correct_moves, currentProblemId, board` with state pattern
+- [x] **Separate pure functions from side effects** - Game logic shouldn't touch DOM directly
 
 ## 2. JavaScript Quality
 
@@ -70,7 +70,7 @@
 
 ## Bigger Refactors
 
-- [ ] Split display.js into modules
+- [x] Split display.js into modules
 - [ ] Add HtmlWebpackPlugin
 - [ ] Implement puzzle lazy-loading
 - [ ] Build Tailwind at compile time
