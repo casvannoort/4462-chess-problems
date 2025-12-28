@@ -22,6 +22,11 @@
 </head>
 <body class="bg-cream-100 min-h-screen font-sans text-slate-700 antialiased">
 
+    <!-- Skip link for keyboard users -->
+    <a href="#board" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent-purple focus:text-white focus:rounded-full focus:font-bold">
+        Naar schaakbord
+    </a>
+
     <!-- Main Container -->
     <main class="h-screen flex flex-col items-center justify-center p-2 md:p-4">
 
@@ -33,7 +38,7 @@
         </div>
 
         <!-- Motivational quote toast -->
-        <div id="quote-toast" class="fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-sm font-semibold shadow-lg transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none z-50">
+        <div id="quote-toast" class="toast fixed top-4 left-1/2 px-4 py-2 rounded-full text-sm font-bold shadow-lg pointer-events-none z-50" role="status" aria-live="polite">
             <span id="quote-text"></span>
         </div>
 
@@ -41,7 +46,7 @@
         <div class="w-full max-w-xl px-2 pb-3 pt-2 opacity-0 animate-slide-up stagger-1">
             <!-- Title -->
             <h1 id="problem-title" class="text-center font-sans text-base md:text-lg font-bold text-slate-700 mb-2">
-                Laden...
+                <span class="skeleton inline-block w-48 h-5">&nbsp;</span>
             </h1>
 
             <!-- Controls row -->
@@ -49,8 +54,8 @@
                 <!-- Next button (replaces navigation when solved) -->
                 <button
                     id="next-btn"
-                    style="display:none"
-                    class="px-4 py-2 bg-fun-green hover:bg-emerald-400 text-white rounded-full font-bold text-xs shadow-sm hover:shadow-md transition-all duration-200"
+                    aria-label="Volgende puzzel"
+                    class="hidden px-4 py-2 bg-fun-green hover:bg-emerald-400 text-white rounded-full font-bold text-xs shadow-sm hover:shadow-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fun-green focus-visible:ring-offset-2"
                 >
                     <span class="flex items-center gap-1.5">
                         Volgende
@@ -59,18 +64,20 @@
 
                 <!-- Navigation (hidden when solved) -->
                 <div id="puzzle-nav" class="flex items-center gap-1.5">
-                    <span class="text-slate-500 text-xs font-medium">Puzzel</span>
+                    <label for="problem-input" class="text-slate-500 text-xs font-medium">Puzzel</label>
                     <input
                         type="number"
                         id="problem-input"
                         min="1"
                         max="4462"
-                        class="input-chess w-20 px-2 py-1.5 bg-white border-2 border-cream-300 rounded-full text-slate-700 text-xs text-center font-bold transition-all duration-200"
+                        aria-label="Puzzel nummer"
+                        class="input-chess w-20 px-2 py-1.5 bg-white border-2 border-cream-300 rounded-full text-slate-700 text-xs text-center font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue focus-visible:ring-offset-2"
                         placeholder="1"
                     />
                     <button
                         id="go-btn"
-                        class="px-3 py-1.5 bg-accent-purple hover:bg-purple-600 rounded-full text-white text-xs font-bold transition-all duration-200"
+                        aria-label="Ga naar puzzel"
+                        class="px-3 py-1.5 bg-accent-purple hover:bg-purple-600 rounded-full text-white text-xs font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-purple focus-visible:ring-offset-2"
                     >
                         Ga!
                     </button>

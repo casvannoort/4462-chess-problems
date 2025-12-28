@@ -30,16 +30,26 @@ function showQuote(isSuccess) {
 
   if (quoteToast && quoteText) {
     quoteText.textContent = quote;
-    quoteToast.className = isSuccess
-      ? "fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-sm font-bold shadow-lg transition-all duration-300 z-50 bg-fun-green text-white"
-      : "fixed top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-sm font-bold shadow-lg transition-all duration-300 z-50 bg-fun-yellow text-slate-800";
-    quoteToast.style.opacity = "1";
-    quoteToast.style.transform = "translateX(-50%) translateY(0)";
+    quoteToast.dataset.type = isSuccess ? "success" : "error";
+    quoteToast.dataset.visible = "true";
 
     setTimeout(() => {
-      quoteToast.style.opacity = "0";
-      quoteToast.style.transform = "translateX(-50%) translateY(-16px)";
+      quoteToast.dataset.visible = "false";
     }, 2500);
+  }
+}
+
+function showError(message) {
+  const { quoteToast, quoteText } = getElements();
+
+  if (quoteToast && quoteText) {
+    quoteText.textContent = message;
+    quoteToast.dataset.type = "error";
+    quoteToast.dataset.visible = "true";
+
+    setTimeout(() => {
+      quoteToast.dataset.visible = "false";
+    }, 4000);
   }
 }
 
@@ -54,8 +64,8 @@ function showSolvedState() {
   const { problemTitle, nextBtn, puzzleNav, boardWrapper } = getElements();
 
   // Show next button, hide navigation
-  nextBtn.style.display = "";
-  puzzleNav.style.display = "none";
+  nextBtn.classList.remove("hidden");
+  puzzleNav.classList.add("hidden");
 
   // Update title with solved badge
   const titleParts = problemTitle.innerHTML.split(" · ");
@@ -70,8 +80,8 @@ function showSolvedState() {
 
 function showPuzzleNav() {
   const { nextBtn, puzzleNav } = getElements();
-  nextBtn.style.display = "none";
-  puzzleNav.style.display = "";
+  nextBtn.classList.add("hidden");
+  puzzleNav.classList.remove("hidden");
 }
 
 function updateProblemInput(problemId) {
@@ -107,6 +117,7 @@ export {
   cacheElements,
   getElements,
   showQuote,
+  showError,
   updateTitle,
   showSolvedState,
   showPuzzleNav,

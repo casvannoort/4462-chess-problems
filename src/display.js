@@ -10,6 +10,7 @@ import {
   cacheElements,
   getElements,
   showQuote,
+  showError,
   updateTitle,
   showSolvedState,
   showPuzzleNav,
@@ -40,37 +41,55 @@ function inputHandler(event) {
   }
 
   if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
-    const src = event.squareFrom;
-    const tgt = event.squareTo;
+    try {
+      const src = event.squareFrom;
+      const tgt = event.squareTo;
 
-    if (state.game.isCheckmate()) {
+      if (!state.correctMoves || state.correctMoves.length === 0) {
+        return false;
+      }
+
+      if (state.game.isCheckmate()) {
+        return false;
+      }
+
+      // Check if the move is even legal in chess
+      const testMove = state.game.move({ from: src, to: tgt, promotion: 'q' });
+      if (!testMove) {
+        // Illegal move - reject silently
+        return false;
+      }
+      // Undo the test move
+      state.game.undo();
+
+      const { source, target, promotion } = parseMove(state.correctMoves[0]);
+
+      if (state.correctMoves.length === 1) {
+        // Last move - check if it results in checkmate
+        if (!wouldBeCheckmate(state.game.fen(), src, tgt, promotion)) {
+          showQuote(false);
+          return false;
+        }
+
+        state.game.move({ from: src, to: tgt, promotion });
+        state.correctMoves.shift();
+        onPuzzleSolved();
+        return true;
+      } else {
+        // Not last move - must match exactly
+        if (src !== source || tgt !== target) {
+          showQuote(false);
+          return false;
+        }
+
+        state.game.move({ from: source, to: target, promotion });
+        state.correctMoves.shift();
+        setTimeout(makeOpponentMove, 500);
+        return true;
+      }
+    } catch (error) {
+      console.error("Move validation error:", error);
       return false;
-    }
-
-    const { source, target, promotion } = parseMove(state.correctMoves[0]);
-
-    if (state.correctMoves.length === 1) {
-      // Last move - check if it results in checkmate
-      if (!wouldBeCheckmate(state.game.fen(), src, tgt, promotion)) {
-        showQuote(false);
-        return false;
-      }
-
-      state.game.move({ from: src, to: tgt, promotion });
-      state.correctMoves.shift();
-      onPuzzleSolved();
-      return true;
-    } else {
-      // Not last move - must match exactly
-      if (src !== source || tgt !== target) {
-        showQuote(false);
-        return false;
-      }
-
-      state.game.move({ from: source, to: target, promotion });
-      state.correctMoves.shift();
-      setTimeout(makeOpponentMove, 500);
-      return true;
     }
   }
 
@@ -101,19 +120,27 @@ async function previousProblem() {
 async function changeProblem(direction) {
   const newId = state.currentProblemId + direction;
   if (newId >= 1 && newId <= totalProblems) {
-    const problem = await getProblem(newId);
-    loadProblem(problem);
-    pushState(newId);
-    preloadAdjacent(newId);
+    try {
+      const problem = await getProblem(newId);
+      loadProblem(problem);
+      pushState(newId);
+      preloadAdjacent(newId);
+    } catch (error) {
+      showError("Puzzel laden mislukt");
+    }
   }
 }
 
 async function goToProblem(id) {
   if (id >= 1 && id <= totalProblems) {
-    const problem = await getProblem(id);
-    loadProblem(problem);
-    pushState(id);
-    preloadAdjacent(id);
+    try {
+      const problem = await getProblem(id);
+      loadProblem(problem);
+      pushState(id);
+      preloadAdjacent(id);
+    } catch (error) {
+      showError("Puzzel laden mislukt");
+    }
   }
 }
 
