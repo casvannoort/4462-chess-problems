@@ -173,6 +173,7 @@ function inputHandler(event) {
 
 function onPuzzleSolved() {
   document.getElementById("next-btn").style.display = "";
+  document.getElementById("puzzle-nav").style.display = "none";
   document.querySelector("#next-btn").onclick = next_problem;
 
   // Update title with solved state (Dutch)
@@ -214,6 +215,7 @@ document.body.onkeydown = function(e) {
 
 function next(problem = problems[0], useAnimation = true) {
   document.getElementById("next-btn").style.display = "none";
+  document.getElementById("puzzle-nav").style.display = "";
   currentProblemId = problem.problemid;
   localStorage.setItem(STORAGE_KEY, currentProblemId);
   const wordToNum = { "One": "1", "Two": "2", "Three": "3" };
