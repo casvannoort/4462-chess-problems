@@ -29,6 +29,8 @@ function makeOpponentMove() {
   const { source, target, promotion } = parseMove(state.correctMoves[0]);
   state.game.move({ from: source, to: target, promotion });
   state.board.movePiece(source, target, true).then(() => {
+    // Update board position to show promoted piece
+    state.board.setPosition(state.game.fen(), false);
     state.correctMoves.shift();
   });
 }
@@ -73,8 +75,11 @@ function inputHandler(event) {
 
         state.game.move({ from: src, to: tgt, promotion });
         state.correctMoves.shift();
+        // Don't let cm-chessboard animate - it doesn't handle promotion
+        // Instead, update the board position ourselves with the correct FEN
+        state.board.setPosition(state.game.fen(), true);
         onPuzzleSolved();
-        return true;
+        return false; // Return false so cm-chessboard doesn't animate the pawn
       } else {
         // Not last move - must match exactly
         if (src !== source || tgt !== target) {
