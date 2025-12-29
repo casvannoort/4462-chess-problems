@@ -1,6 +1,7 @@
 import "./src/styles.css";
 import "cm-chessboard/assets/chessboard.css";
 import "cm-chessboard/assets/extensions/markers/markers.css";
+import "cm-chessboard/assets/extensions/promotion-dialog/promotion-dialog.css";
 
 import { init } from "./src/display.js";
 

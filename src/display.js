@@ -1,6 +1,7 @@
 // Main orchestrator - imports and coordinates all modules
 import { Chessboard, INPUT_EVENT_TYPE, COLOR } from "cm-chessboard";
 import { Markers, MARKER_TYPE } from "cm-chessboard/src/extensions/markers/Markers.js";
+import { PromotionDialog, PROMOTION_DIALOG_RESULT_TYPE } from "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js";
 
 import { state, setState, saveToStorage } from "./state.js";
 import { parseMove, getMoveCount, getColorIndicator, wouldBeCheckmate, createGame, getTurnColor } from "./game.js";
@@ -23,6 +24,15 @@ import {
 
 let totalProblems = 4462; // Will be updated from manifest
 
+// --- Promotion Detection ---
+
+function isPromotionMove(game, from, to) {
+  const piece = game.get(from);
+  if (!piece || piece.type !== 'p') return false;
+  const targetRank = to.charAt(1);
+  return targetRank === '8' || targetRank === '1';
+}
+
 // --- Move Execution ---
 
 function makeOpponentMove() {
@@ -36,6 +46,27 @@ function makeOpponentMove() {
 }
 
 // --- Input Handler ---
+
+function handlePromotionSelection(src, tgt, expectedPromotion, selectedPromotion, isLastMove) {
+  // Check if user selected the correct piece
+  if (selectedPromotion !== expectedPromotion) {
+    showQuote(false);
+    // Reset board to current position (piece goes back)
+    state.board.setPosition(state.game.fen(), false);
+    return;
+  }
+
+  // Correct promotion piece selected
+  state.game.move({ from: src, to: tgt, promotion: selectedPromotion });
+  state.correctMoves.shift();
+  state.board.setPosition(state.game.fen(), true);
+
+  if (isLastMove) {
+    onPuzzleSolved();
+  } else {
+    setTimeout(makeOpponentMove, 500);
+  }
+}
 
 function inputHandler(event) {
   if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
@@ -64,22 +95,52 @@ function inputHandler(event) {
       // Undo the test move
       state.game.undo();
 
-      const { source, target, promotion } = parseMove(state.correctMoves[0]);
+      const { source, target, promotion: expectedPromotion } = parseMove(state.correctMoves[0]);
+      const isLastMove = state.correctMoves.length === 1;
 
-      if (state.correctMoves.length === 1) {
-        // Last move - check if it results in checkmate
-        if (!wouldBeCheckmate(state.game.fen(), src, tgt, promotion)) {
+      // Check if this is a promotion move
+      if (isPromotionMove(state.game, src, tgt)) {
+        // For last move, also verify it would be checkmate with the expected promotion
+        if (isLastMove && !wouldBeCheckmate(state.game.fen(), src, tgt, expectedPromotion)) {
           showQuote(false);
           return false;
         }
 
-        state.game.move({ from: src, to: tgt, promotion });
+        // For non-last moves, squares must match exactly
+        if (!isLastMove && (src !== source || tgt !== target)) {
+          showQuote(false);
+          return false;
+        }
+
+        // Show promotion dialog
+        const turnColor = getTurnColor(state.game) === 'w' ? COLOR.white : COLOR.black;
+        state.board.showPromotionDialog(tgt, turnColor, (result) => {
+          if (result.type === PROMOTION_DIALOG_RESULT_TYPE.pieceSelected) {
+            // Extract piece type from result (e.g., "wq" -> "q")
+            const selectedPromotion = result.piece.charAt(1);
+            handlePromotionSelection(src, tgt, expectedPromotion, selectedPromotion, isLastMove);
+          } else {
+            // Canceled - reset board
+            state.board.setPosition(state.game.fen(), false);
+          }
+        });
+
+        return false; // Don't let cm-chessboard handle the move
+      }
+
+      // Non-promotion move handling
+      if (isLastMove) {
+        // Last move - check if it results in checkmate
+        if (!wouldBeCheckmate(state.game.fen(), src, tgt, expectedPromotion)) {
+          showQuote(false);
+          return false;
+        }
+
+        state.game.move({ from: src, to: tgt, promotion: expectedPromotion });
         state.correctMoves.shift();
-        // Don't let cm-chessboard animate - it doesn't handle promotion
-        // Instead, update the board position ourselves with the correct FEN
         state.board.setPosition(state.game.fen(), true);
         onPuzzleSolved();
-        return false; // Return false so cm-chessboard doesn't animate the pawn
+        return false;
       } else {
         // Not last move - must match exactly
         if (src !== source || tgt !== target) {
@@ -87,7 +148,7 @@ function inputHandler(event) {
           return false;
         }
 
-        state.game.move({ from: source, to: target, promotion });
+        state.game.move({ from: source, to: target, promotion: expectedPromotion });
         state.correctMoves.shift();
         setTimeout(makeOpponentMove, 500);
         return true;
@@ -243,6 +304,7 @@ async function init() {
     },
     extensions: [
       { class: Markers, props: { autoMarkers: MARKER_TYPE.frame } },
+      { class: PromotionDialog },
     ],
   });
 
