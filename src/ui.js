@@ -55,7 +55,7 @@ function showError(message) {
 
 function updateTitle(problemId, moveCount, colorIndicator) {
   const { problemTitle } = getElements();
-  const title = `<span class="text-slate-400">#${problemId}</span> Mat in ${moveCount} · <span class="text-accent-blue">${colorIndicator}</span>`;
+  const title = `<span class="text-mc-emerald">#${problemId}</span> Mat in ${moveCount} · <span class="text-mc-gold">${colorIndicator}</span>`;
   problemTitle.innerHTML = title;
   document.title = `#${problemId}`;
 }
@@ -69,7 +69,7 @@ function showSolvedState() {
 
   // Update title with solved badge
   const titleParts = problemTitle.innerHTML.split(" · ");
-  problemTitle.innerHTML = titleParts[0] + ' · <span class="text-success-600 success-badge inline-block">✓ Opgelost!</span>';
+  problemTitle.innerHTML = titleParts[0] + ' · <span class="text-mc-emerald success-badge inline-block">GG!</span>';
 
   // Celebration effect
   if (boardWrapper) {

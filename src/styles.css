@@ -1,30 +1,47 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream-50: #FFFDF7;
-  --color-cream-100: #FFF9E6;
-  --color-cream-200: #FFF3D0;
-  --color-cream-300: #FFE9B0;
-  --color-cream-400: #FFD580;
+  /* Minecraft color palette */
+  --color-mc-dirt: #866043;
+  --color-mc-dirt-dark: #593D29;
+  --color-mc-grass: #7CBD6B;
+  --color-mc-grass-dark: #5A9A48;
+  --color-mc-stone: #8B8B8B;
+  --color-mc-stone-dark: #6B6B6B;
+  --color-mc-wood-oak: #C4A468;
+  --color-mc-wood-spruce: #6B4E32;
+  --color-mc-cobble: #7A7A7A;
+  --color-mc-bedrock: #3C3C3C;
+  --color-mc-gold: #FCDB5E;
+  --color-mc-emerald: #17D14E;
+  --color-mc-redstone: #D03434;
+  --color-mc-sky: #7BA4DB;
 
-  --color-success-50: #ECFDF5;
-  --color-success-100: #D1FAE5;
-  --color-success-500: #10B981;
-  --color-success-600: #059669;
-  --color-success-700: #047857;
+  /* Legacy colors mapped to Minecraft */
+  --color-cream-50: #C4A468;
+  --color-cream-100: #866043;
+  --color-cream-200: #6B4E32;
+  --color-cream-300: #593D29;
+  --color-cream-400: #3C3C3C;
 
-  --color-accent-blue: #6366F1;
+  --color-success-50: #17D14E;
+  --color-success-100: #17D14E;
+  --color-success-500: #17D14E;
+  --color-success-600: #14B844;
+  --color-success-700: #0F9435;
+
+  --color-accent-blue: #7BA4DB;
   --color-accent-purple: #8B5CF6;
   --color-accent-pink: #EC4899;
-  --color-accent-orange: #F97316;
+  --color-accent-orange: #FCDB5E;
 
-  --color-fun-yellow: #FBBF24;
-  --color-fun-green: #34D399;
-  --color-fun-blue: #60A5FA;
-  --color-fun-red: #F87171;
+  --color-fun-yellow: #FCDB5E;
+  --color-fun-green: #17D14E;
+  --color-fun-blue: #7BA4DB;
+  --color-fun-red: #D03434;
 
-  --font-display: "Source Serif 4", serif;
-  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Press Start 2P", monospace;
+  --font-sans: "Press Start 2P", monospace;
 
   --animate-fade-in: fadeIn 0.5s ease-out forwards;
   --animate-slide-up: slideUp 0.4s ease-out forwards;
@@ -46,43 +63,97 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Minecraft stone style */
 ::-webkit-scrollbar {
     width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #F3F0EB;
+    background: #6B6B6B;
 }
 ::-webkit-scrollbar-thumb {
-    background: #D4CFC5;
-    border-radius: 4px;
+    background: #8B8B8B;
+    border: 2px solid #3C3C3C;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #B8B3A9;
+    background: #9B9B9B;
 }
 
-/* Board container shadow */
+/* Minecraft pixel border effect */
+.mc-border {
+    box-shadow:
+        inset -4px -4px 0 0 #3C3C3C,
+        inset 4px 4px 0 0 #ABABAB,
+        0 0 0 4px #6B6B6B;
+}
+
+/* Board container - Minecraft style frame */
 .board-shadow {
     box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.07),
-        0 10px 20px -5px rgba(0, 0, 0, 0.1),
-        0 0 0 1px rgba(0, 0, 0, 0.03);
+        inset -4px -4px 0 0 #3C3C3C,
+        inset 4px 4px 0 0 #C4A468,
+        0 0 0 4px #6B4E32,
+        0 8px 0 0 #3C3C3C;
 }
 
-/* Input focus ring */
+/* Minecraft input styling */
+.input-chess {
+    background: #8B8B8B;
+    border: 4px solid;
+    border-color: #3C3C3C #ABABAB #ABABAB #3C3C3C;
+    font-family: "Press Start 2P", monospace;
+}
 .input-chess:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    border-color: #3B82F6;
+    background: #9B9B9B;
+    border-color: #17D14E #0F9435 #0F9435 #17D14E;
 }
 
-/* Solved state celebration */
+/* Minecraft button base */
+.mc-btn {
+    font-family: "Press Start 2P", monospace;
+    background: #8B8B8B;
+    border: 4px solid;
+    border-color: #ABABAB #3C3C3C #3C3C3C #ABABAB;
+    color: #3C3C3C;
+    text-shadow: 2px 2px 0 #ABABAB;
+    transition: none;
+}
+.mc-btn:hover {
+    background: #9B9B9B;
+}
+.mc-btn:active {
+    border-color: #3C3C3C #ABABAB #ABABAB #3C3C3C;
+}
+
+/* Minecraft green button (emerald) */
+.mc-btn-green {
+    background: #17D14E;
+    border-color: #5EE88A #0F9435 #0F9435 #5EE88A;
+    color: white;
+    text-shadow: 2px 2px 0 #0F9435;
+}
+.mc-btn-green:hover {
+    background: #2EE062;
+}
+
+/* Minecraft gold button */
+.mc-btn-gold {
+    background: #FCDB5E;
+    border-color: #FDE992 #C9A82A #C9A82A #FDE992;
+    color: #593D29;
+    text-shadow: 1px 1px 0 #FDE992;
+}
+.mc-btn-gold:hover {
+    background: #FDE27A;
+}
+
+/* Solved state celebration - Minecraft emerald glow */
 .solved-celebration {
     animation: celebratePulse 0.5s ease-out;
 }
 @keyframes celebratePulse {
-    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-    100% { box-shadow: 0 0 30px 8px rgba(34, 197, 94, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(23, 209, 78, 0.6); }
+    100% { box-shadow: 0 0 40px 12px rgba(23, 209, 78, 0); }
 }
 
 /* Stagger animations */
@@ -91,9 +162,21 @@
 .stagger-3 { animation-delay: 0.15s; }
 .stagger-4 { animation-delay: 0.2s; }
 
-/* Override cm-chessboard default styles */
+/* Override cm-chessboard with Minecraft block colors */
 .cm-chessboard .board {
-    border-radius: 6px;
+    border-radius: 0;
+}
+.cm-chessboard.default .board .square.white {
+    fill: #C4A468; /* Oak planks */
+}
+.cm-chessboard.default .board .square.black {
+    fill: #6B4E32; /* Spruce planks */
+}
+.cm-chessboard.default .coordinates .coordinate.white {
+    fill: #4A3622;
+}
+.cm-chessboard.default .coordinates .coordinate.black {
+    fill: #D4BA88;
 }
 
 /* Success badge animation */
@@ -105,33 +188,52 @@
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Toast notification */
+/* Toast notification - Minecraft style */
 .toast {
     opacity: 0;
     transform: translateX(-50%) translateY(-16px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    font-family: "Press Start 2P", monospace;
+    border: 4px solid;
+    border-radius: 0;
 }
 .toast[data-visible="true"] {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
 .toast[data-type="success"] {
-    background-color: var(--color-fun-green);
+    background-color: #17D14E;
+    border-color: #5EE88A #0F9435 #0F9435 #5EE88A;
     color: white;
+    text-shadow: 2px 2px 0 #0F9435;
 }
 .toast[data-type="error"] {
-    background-color: var(--color-fun-yellow);
-    color: #1e293b;
+    background-color: #D03434;
+    border-color: #E86464 #8B2222 #8B2222 #E86464;
+    color: white;
+    text-shadow: 2px 2px 0 #8B2222;
 }
 
-/* Loading skeleton */
+/* Loading skeleton - Minecraft stone shimmer */
 .skeleton {
-    background: linear-gradient(90deg, #e2e0db 25%, #f0eeea 50%, #e2e0db 75%);
+    background: linear-gradient(90deg, #6B6B6B 25%, #8B8B8B 50%, #6B6B6B 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
-    border-radius: 4px;
+    border-radius: 0;
 }
 @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+}
+
+/* Minecraft dirt background pattern */
+.mc-dirt-bg {
+    background-color: #866043;
+    background-image:
+        linear-gradient(45deg, #7A5639 25%, transparent 25%),
+        linear-gradient(-45deg, #7A5639 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #7A5639 75%),
+        linear-gradient(-45deg, transparent 75%, #7A5639 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
