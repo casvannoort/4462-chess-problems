@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Local Press Start 2P font (Minecraft-style pixel font) */
+@font-face {
+  font-family: 'Press Start 2P';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../public/fonts/PressStart2P.woff2') format('woff2');
+}
+
 @theme {
   /* Minecraft color palette */
   --color-mc-dirt: #866043;

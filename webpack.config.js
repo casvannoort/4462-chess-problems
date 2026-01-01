@@ -60,6 +60,13 @@ module.exports = {
                     'css-loader',
                     'postcss-loader'
                 ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]'
+                }
             }
         ]
     },
@@ -75,6 +82,7 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: 'public/puzzles', to: 'puzzles' },
+                { from: 'public/fonts', to: 'fonts' },
             ],
         }),
     ],

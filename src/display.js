@@ -4,7 +4,7 @@ import { Markers, MARKER_TYPE } from "cm-chessboard/src/extensions/markers/Marke
 import { PromotionDialog, PROMOTION_DIALOG_RESULT_TYPE } from "cm-chessboard/src/extensions/promotion-dialog/PromotionDialog.js";
 
 import { state, setState, saveToStorage } from "./state.js";
-import { parseMove, getMoveCount, getColorIndicator, wouldBeCheckmate, createGame, getTurnColor } from "./game.js";
+import { getMoveCount, getColorIndicator, wouldBeCheckmate, createGame, getTurnColor } from "./game.js";
 import { initUrlParameters, pushState, getInitialProblemId } from "./router.js";
 import { getProblem, getTotalProblems, preloadAdjacent } from "./puzzleLoader.js";
 import {
@@ -36,7 +36,12 @@ function isPromotionMove(game, from, to) {
 // --- Move Execution ---
 
 function makeOpponentMove() {
-  const { source, target, promotion } = parseMove(state.correctMoves[0]);
+  // correctMoves are now in UCI format: "e6f6", "e7e8q"
+  const move = state.correctMoves[0];
+  const source = move.slice(0, 2);
+  const target = move.slice(2, 4);
+  const promotion = move.length > 4 ? move[4] : undefined;
+
   state.game.move({ from: source, to: target, promotion });
   state.board.movePiece(source, target, true).then(() => {
     // Update board position to show promoted piece
@@ -78,10 +83,6 @@ function inputHandler(event) {
       const src = event.squareFrom;
       const tgt = event.squareTo;
 
-      if (!state.correctMoves || state.correctMoves.length === 0) {
-        return false;
-      }
-
       if (state.game.isCheckmate()) {
         return false;
       }
@@ -89,66 +90,125 @@ function inputHandler(event) {
       // Check if the move is even legal in chess
       const testMove = state.game.move({ from: src, to: tgt, promotion: 'q' });
       if (!testMove) {
-        // Illegal move - reject silently
         return false;
       }
-      // Undo the test move
       state.game.undo();
 
-      const { source, target, promotion: expectedPromotion } = parseMove(state.correctMoves[0]);
+      // --- FIRST MOVE: check against all valid solutions ---
+      if (state.isFirstMove) {
+        // Build UCI move string (e.g., "d5c3" or "e7e8q" for promotion)
+        const userMoveBase = src + tgt;
+
+        if (isPromotionMove(state.game, src, tgt)) {
+          // Show promotion dialog for first move
+          const turnColor = getTurnColor(state.game) === 'w' ? COLOR.white : COLOR.black;
+          state.board.showPromotionDialog(tgt, turnColor, (result) => {
+            if (result.type === PROMOTION_DIALOG_RESULT_TYPE.pieceSelected) {
+              const selectedPromotion = result.piece.charAt(1);
+              const userMove = userMoveBase + selectedPromotion;
+
+              if (state.solutions[userMove]) {
+                // Valid first move with promotion
+                state.game.move({ from: src, to: tgt, promotion: selectedPromotion });
+                setState({
+                  correctMoves: [...state.solutions[userMove]],
+                  isFirstMove: false,
+                });
+                state.board.setPosition(state.game.fen(), true);
+
+                if (state.correctMoves.length === 0) {
+                  onPuzzleSolved();
+                } else {
+                  setTimeout(makeOpponentMove, 500);
+                }
+              } else {
+                showQuote(false);
+                state.board.setPosition(state.game.fen(), false);
+              }
+            } else {
+              state.board.setPosition(state.game.fen(), false);
+            }
+          });
+          return false;
+        }
+
+        // Non-promotion first move
+        if (state.solutions[userMoveBase]) {
+          // Valid first move
+          state.game.move({ from: src, to: tgt });
+          setState({
+            correctMoves: [...state.solutions[userMoveBase]],
+            isFirstMove: false,
+          });
+
+          if (state.correctMoves.length === 0) {
+            // Mate in 1 - solved immediately
+            state.board.setPosition(state.game.fen(), true);
+            onPuzzleSolved();
+            return false;
+          } else {
+            setTimeout(makeOpponentMove, 500);
+            return true;
+          }
+        } else {
+          showQuote(false);
+          return false;
+        }
+      }
+
+      // --- SUBSEQUENT MOVES: validate against correctMoves ---
+      if (!state.correctMoves || state.correctMoves.length === 0) {
+        return false;
+      }
+
+      const nextExpected = state.correctMoves[0];
+      const expectedSrc = nextExpected.slice(0, 2);
+      const expectedTgt = nextExpected.slice(2, 4);
+      const expectedPromotion = nextExpected.length > 4 ? nextExpected[4] : null;
       const isLastMove = state.correctMoves.length === 1;
 
-      // Check if this is a promotion move
       if (isPromotionMove(state.game, src, tgt)) {
-        // For last move, also verify it would be checkmate with the expected promotion
-        if (isLastMove && !wouldBeCheckmate(state.game.fen(), src, tgt, expectedPromotion)) {
+        if (isLastMove && !wouldBeCheckmate(state.game.fen(), src, tgt, expectedPromotion || 'q')) {
           showQuote(false);
           return false;
         }
 
-        // For non-last moves, squares must match exactly
-        if (!isLastMove && (src !== source || tgt !== target)) {
+        if (!isLastMove && (src !== expectedSrc || tgt !== expectedTgt)) {
           showQuote(false);
           return false;
         }
 
-        // Show promotion dialog
         const turnColor = getTurnColor(state.game) === 'w' ? COLOR.white : COLOR.black;
         state.board.showPromotionDialog(tgt, turnColor, (result) => {
           if (result.type === PROMOTION_DIALOG_RESULT_TYPE.pieceSelected) {
-            // Extract piece type from result (e.g., "wq" -> "q")
             const selectedPromotion = result.piece.charAt(1);
-            handlePromotionSelection(src, tgt, expectedPromotion, selectedPromotion, isLastMove);
+            handlePromotionSelection(src, tgt, expectedPromotion || selectedPromotion, selectedPromotion, isLastMove);
           } else {
-            // Canceled - reset board
             state.board.setPosition(state.game.fen(), false);
           }
         });
-
-        return false; // Don't let cm-chessboard handle the move
+        return false;
       }
 
-      // Non-promotion move handling
+      // Non-promotion subsequent move
       if (isLastMove) {
-        // Last move - check if it results in checkmate
-        if (!wouldBeCheckmate(state.game.fen(), src, tgt, expectedPromotion)) {
+        if (!wouldBeCheckmate(state.game.fen(), src, tgt, null)) {
           showQuote(false);
           return false;
         }
 
-        state.game.move({ from: src, to: tgt, promotion: expectedPromotion });
+        state.game.move({ from: src, to: tgt });
         state.correctMoves.shift();
         state.board.setPosition(state.game.fen(), true);
         onPuzzleSolved();
         return false;
       } else {
-        // Not last move - must match exactly
-        if (src !== source || tgt !== target) {
+        if (src !== expectedSrc || tgt !== expectedTgt) {
           showQuote(false);
           return false;
         }
 
-        state.game.move({ from: source, to: target, promotion: expectedPromotion });
+        state.game.move({ from: src, to: tgt, promotion: expectedPromotion });
         state.correctMoves.shift();
         setTimeout(makeOpponentMove, 500);
         return true;
@@ -229,7 +289,9 @@ function loadProblem(problem, useAnimation = true) {
   setState({
     currentProblemId: problem.problemid,
     game: createGame(problem.fen),
-    correctMoves: problem.moves.split(";"),
+    solutions: problem.solutions,  // { "d5c3": ["e6f6", "e8f8"], ... }
+    correctMoves: null,            // Set after user's first move
+    isFirstMove: true,
   });
 
   saveToStorage();

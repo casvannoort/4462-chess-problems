@@ -4,7 +4,9 @@ import { STORAGE_KEYS } from "./constants.js";
 const state = {
   game: null,
   board: null,
-  correctMoves: [],
+  solutions: {},      // { "d5c3": ["e6f6", "e8f8"], ... }
+  correctMoves: null, // Set after user's first move
+  isFirstMove: true,
   currentProblemId: null,
   urlParameters: {},
 };
