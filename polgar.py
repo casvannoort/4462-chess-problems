@@ -2,6 +2,7 @@
 """
 Solve chess problems from polgar.pgn using Stockfish and output JSON to stdout.
 Uses parallel processing for faster solving.
+Prefers original polgar.pgn continuations when available.
 
 Usage: python polgar.py > problems.json
        python polgar.py --start 100 --end 200 > subset.json
@@ -14,7 +15,6 @@ import sys
 import os
 import argparse
 import multiprocessing
-from functools import partial
 from chess.pgn import read_game
 from dotenv import load_dotenv
 
@@ -53,9 +53,19 @@ def title_case(s):
     return " ".join(result)
 
 
+def extract_pgn_moves(game):
+    """Extract mainline moves from PGN game as UCI strings."""
+    moves = []
+    board = game.board()
+    for move in game.mainline_moves():
+        moves.append(move.uci())
+        board.push(move)
+    return moves
+
+
 def solve_puzzle(puzzle_data):
     """Worker function: solve a single puzzle with its own Stockfish instance."""
-    problemid, fen, move_type, first_move, mate_count = puzzle_data
+    problemid, fen, move_type, first_move, mate_count, pgn_moves = puzzle_data
 
     # Each worker creates its own engine instance
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
@@ -75,6 +85,10 @@ def solve_puzzle(puzzle_data):
                 multipv=multipv
             )
 
+            # Get the original first move and continuation from polgar.pgn
+            pgn_first_move = pgn_moves[0] if pgn_moves else None
+            pgn_continuation = pgn_moves[1:] if len(pgn_moves) > 1 else []
+
             for pv_info in info:
                 score = pv_info.get("score")
                 if score and score.is_mate():
@@ -83,7 +97,13 @@ def solve_puzzle(puzzle_data):
                         pv = pv_info.get("pv", [])
                         if pv:
                             first = pv[0].uci()
-                            continuation = [m.uci() for m in pv[1:]]
+
+                            # Prefer polgar.pgn continuation if this is the original first move
+                            if first == pgn_first_move and pgn_continuation:
+                                continuation = pgn_continuation
+                            else:
+                                continuation = [m.uci() for m in pv[1:]]
+
                             solutions[first] = continuation
 
         return {
@@ -123,7 +143,11 @@ def extract_puzzles_from_pgn(pgn_path, start, end):
                 continue
 
             mate_count = parse_mate_count(move_type)
-            puzzles.append((i, fen, move_type, first_move, mate_count))
+
+            # Extract original moves from PGN
+            pgn_moves = extract_pgn_moves(g)
+
+            puzzles.append((i, fen, move_type, first_move, mate_count, pgn_moves))
 
     return puzzles
 
