@@ -1,4 +1,7 @@
-// Main orchestrator - imports and coordinates all modules
+/**
+ * Main orchestrator - imports and coordinates all modules
+ * @module display
+ */
 import { state, setState } from "./state.js";
 import { initUrlParameters, pushState, getInitialProblemId } from "./router.js";
 import { getProblem, getTotalProblems, preloadAdjacent } from "./puzzleLoader.js";
@@ -16,6 +19,9 @@ import {
 
 // --- Puzzle State Callback ---
 
+/**
+ * Callback when puzzle is solved - updates UI and disables input
+ */
 function onPuzzleSolved() {
   showSolvedState();
   setNextButtonHandler(nextProblem);
@@ -25,6 +31,10 @@ function onPuzzleSolved() {
 
 // --- Initialize ---
 
+/**
+ * Initialize the chess puzzle application
+ * Sets up board, loads initial puzzle, and registers event handlers
+ */
 async function init() {
   cacheElements();
   initUrlParameters();

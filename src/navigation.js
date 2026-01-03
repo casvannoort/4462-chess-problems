@@ -19,6 +19,7 @@ let inputHandler = null;
 
 /**
  * Set the total number of problems (from manifest)
+ * @param {number} count - Total puzzle count
  */
 function setTotalProblems(count) {
   totalProblems = count;
@@ -26,6 +27,7 @@ function setTotalProblems(count) {
 
 /**
  * Set the input handler for move validation
+ * @param {Function} handler - Move input handler function
  */
 function setInputHandler(handler) {
   inputHandler = handler;
@@ -33,14 +35,24 @@ function setInputHandler(handler) {
 
 // --- Navigation Functions ---
 
+/**
+ * Navigate to next puzzle
+ */
 async function nextProblem() {
   await changeProblem(1);
 }
 
+/**
+ * Navigate to previous puzzle
+ */
 async function previousProblem() {
   await changeProblem(-1);
 }
 
+/**
+ * Change puzzle by relative direction
+ * @param {number} direction - +1 for next, -1 for previous
+ */
 async function changeProblem(direction) {
   const newId = state.currentProblemId + direction;
   if (newId < 1 || newId > totalProblems) {
@@ -59,6 +71,10 @@ async function changeProblem(direction) {
   preloadAdjacent(newId).catch(() => {});
 }
 
+/**
+ * Navigate directly to a specific puzzle by ID
+ * @param {number} id - Problem ID to load
+ */
 async function goToProblem(id) {
   if (!id || id < 1 || id > totalProblems) {
     return;
@@ -79,6 +95,11 @@ async function goToProblem(id) {
 
 // --- Load Problem ---
 
+/**
+ * Load and display a puzzle on the board
+ * @param {import('./puzzleLoader.js').Puzzle} problem - Puzzle data
+ * @param {boolean} [useAnimation=true] - Whether to animate piece placement
+ */
 function loadProblem(problem, useAnimation = true) {
   showPuzzleNav();
 
@@ -107,6 +128,10 @@ function loadProblem(problem, useAnimation = true) {
 
 // --- Keyboard Navigation ---
 
+/**
+ * Setup keyboard shortcuts for puzzle navigation
+ * Arrow keys and Space for next/previous puzzle
+ */
 function setupKeyboardNavigation() {
   document.body.onkeydown = (e) => {
     if (e.target.id === "problem-input") {
@@ -129,6 +154,9 @@ function setupKeyboardNavigation() {
 
 // --- Browser History ---
 
+/**
+ * Setup handler for browser back/forward navigation
+ */
 function setupPopstateHandler() {
   window.onpopstate = async (event) => {
     if (event.state && "id" in event.state) {
@@ -146,6 +174,9 @@ function setupPopstateHandler() {
 
 // --- Setup UI Handlers ---
 
+/**
+ * Initialize all navigation event handlers
+ */
 function setupNavigationHandlers() {
   setGoButtonHandler(() => goToProblem(getProblemInputValue()));
   setProblemInputHandler(() => goToProblem(getProblemInputValue()));

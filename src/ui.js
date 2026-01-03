@@ -2,9 +2,25 @@
 import { getRandomQuote } from "./quotes.js";
 import { DOM_IDS } from "./constants.js";
 
-// Cache DOM elements
+/** @typedef {Object} CachedElements
+ * @property {HTMLElement} board
+ * @property {HTMLElement} boardWrapper
+ * @property {HTMLElement} problemTitle
+ * @property {HTMLInputElement} problemInput
+ * @property {HTMLElement} nextBtn
+ * @property {HTMLElement} puzzleNav
+ * @property {HTMLElement} goBtn
+ * @property {HTMLElement} quoteToast
+ * @property {HTMLElement} quoteText
+ */
+
+/** @type {CachedElements|null} */
 let elements = null;
 
+/**
+ * Cache DOM elements for faster access
+ * @returns {CachedElements} Cached DOM element references
+ */
 function cacheElements() {
   elements = {
     board: document.getElementById(DOM_IDS.BOARD),
@@ -20,10 +36,18 @@ function cacheElements() {
   return elements;
 }
 
+/**
+ * Get cached DOM elements (caches on first call)
+ * @returns {CachedElements} Cached DOM element references
+ */
 function getElements() {
   return elements || cacheElements();
 }
 
+/**
+ * Show a toast with a random quote
+ * @param {boolean} isSuccess - True for success quote, false for error
+ */
 function showQuote(isSuccess) {
   const { quoteToast, quoteText } = getElements();
   const quote = getRandomQuote(isSuccess);
@@ -39,6 +63,10 @@ function showQuote(isSuccess) {
   }
 }
 
+/**
+ * Show an error message toast
+ * @param {string} message - Error message to display
+ */
 function showError(message) {
   const { quoteToast, quoteText } = getElements();
 
@@ -53,6 +81,12 @@ function showError(message) {
   }
 }
 
+/**
+ * Update the puzzle title display
+ * @param {number} problemId - Current problem ID
+ * @param {string} moveCount - Number of moves (e.g., "2")
+ * @param {string} colorIndicator - "Wit" or "Zwart"
+ */
 function updateTitle(problemId, moveCount, colorIndicator) {
   const { problemTitle } = getElements();
   const isWhite = colorIndicator === "Wit";
@@ -68,6 +102,9 @@ function updateTitle(problemId, moveCount, colorIndicator) {
   document.title = `#${problemId}`;
 }
 
+/**
+ * Update UI to show puzzle solved state with celebration effect
+ */
 function showSolvedState() {
   const { problemTitle, nextBtn, puzzleNav, boardWrapper } = getElements();
 
@@ -86,32 +123,55 @@ function showSolvedState() {
   }
 }
 
+/**
+ * Show puzzle navigation controls (hide next button)
+ */
 function showPuzzleNav() {
   const { nextBtn, puzzleNav } = getElements();
   nextBtn.classList.add("hidden");
   puzzleNav.classList.remove("hidden");
 }
 
+/**
+ * Update the problem input field value
+ * @param {number} problemId - Problem ID to display
+ */
 function updateProblemInput(problemId) {
   const { problemInput } = getElements();
   problemInput.value = problemId;
 }
 
+/**
+ * Get the current value from problem input field
+ * @returns {number} Parsed problem ID
+ */
 function getProblemInputValue() {
   const { problemInput } = getElements();
   return parseInt(problemInput.value);
 }
 
+/**
+ * Set click handler for next button
+ * @param {Function} handler - Click handler function
+ */
 function setNextButtonHandler(handler) {
   const { nextBtn } = getElements();
   nextBtn.onclick = handler;
 }
 
+/**
+ * Set click handler for go button
+ * @param {Function} handler - Click handler function
+ */
 function setGoButtonHandler(handler) {
   const { goBtn } = getElements();
   goBtn.onclick = handler;
 }
 
+/**
+ * Set Enter key handler for problem input
+ * @param {Function} handler - Handler called on Enter key
+ */
 function setProblemInputHandler(handler) {
   const { problemInput } = getElements();
   problemInput.onkeydown = (e) => {

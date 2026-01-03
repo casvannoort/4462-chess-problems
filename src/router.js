@@ -3,14 +3,25 @@ import URI from "urijs";
 import { state } from "./state.js";
 import { STORAGE_KEYS } from "./constants.js";
 
+/**
+ * Parse URL query parameters
+ * @returns {Object} Query parameters as key-value pairs
+ */
 function getUrlParameters() {
   return new URI(window.location.href).search(true);
 }
 
+/**
+ * Initialize URL parameters in application state
+ */
 function initUrlParameters() {
   state.urlParameters = getUrlParameters();
 }
 
+/**
+ * Push new problem ID to browser history
+ * @param {number} problemId - Problem ID to add to URL
+ */
 function pushState(problemId) {
   if (window.history && window.history.pushState && "o" in state.urlParameters) {
     state.urlParameters["id"] = problemId;
@@ -25,6 +36,11 @@ function pushState(problemId) {
   }
 }
 
+/**
+ * Determine initial problem ID from URL, localStorage, or default
+ * @param {number} totalProblems - Total number of available problems
+ * @returns {number} Initial problem ID to load
+ */
 function getInitialProblemId(totalProblems) {
   // First check URL parameter
   const urlId = state.urlParameters["id"];

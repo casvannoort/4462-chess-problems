@@ -8,10 +8,20 @@ import { showQuote } from "./ui.js";
 
 // --- Tree Navigation Helpers ---
 
+/**
+ * Check if a tree node is terminal (empty object = end of solution)
+ * @param {Object} tree - Solution tree node
+ * @returns {boolean} True if node has no children
+ */
 function isTerminalNode(tree) {
   return tree && Object.keys(tree).length === 0;
 }
 
+/**
+ * Get the first move from a solution tree node
+ * @param {Object} tree - Solution tree node
+ * @returns {string|null} First move key or null if empty
+ */
 function getFirstMove(tree) {
   const moves = Object.keys(tree);
   return moves.length > 0 ? moves[0] : null;
@@ -19,6 +29,13 @@ function getFirstMove(tree) {
 
 // --- Promotion Detection ---
 
+/**
+ * Check if a move is a pawn promotion
+ * @param {import('chess.js').Chess} game - Chess game instance
+ * @param {string} from - Source square
+ * @param {string} to - Target square
+ * @returns {boolean} True if move promotes a pawn
+ */
 function isPromotionMove(game, from, to) {
   const piece = game.get(from);
   if (!piece || piece.type !== 'p') return false;
@@ -28,6 +45,9 @@ function isPromotionMove(game, from, to) {
 
 // --- Move Execution ---
 
+/**
+ * Execute the opponent's response move from solution tree
+ */
 function makeOpponentMove() {
   const move = getFirstMove(state.solutionTree);
   if (!move) return;

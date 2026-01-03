@@ -14,7 +14,7 @@ make stop   # Stop the container
 make clean  # Stop and remove images
 ```
 
-**Important:** `npm start` only runs webpack to build assets locally - it does NOT serve the website. The site is always served from Docker on port 3000.
+**Important:** Always use `make run` to build and test changes. Do NOT run `npm start` or `npm run build` directly - the Makefile handles everything including webpack bundling inside Docker.
 
 ### Build Process
 
