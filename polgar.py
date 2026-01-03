@@ -177,7 +177,7 @@ def solve_puzzle(puzzle_data):
                                             test_board.push_uci(alt_move)
                                             if test_board.is_checkmate():
                                                 tree[alt_move] = {}
-                                        except:
+                                        except (ValueError, chess.InvalidMoveError):
                                             pass
                     else:
                         new_board = current_board.copy()

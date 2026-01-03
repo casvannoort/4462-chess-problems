@@ -9,12 +9,16 @@ Usage: python check_puzzle.py <puzzle_id>
 import subprocess
 import json
 import sys
+import os
 import threading
 import queue
 import time
 from pathlib import Path
+from dotenv import load_dotenv
 
-STOCKFISH_PATH = "/home/cas/stockfish/stockfish-ubuntu-x86-64-avx2"
+load_dotenv()
+
+STOCKFISH_PATH = os.getenv("STOCKFISH_PATH", "stockfish")
 
 
 def load_puzzle(puzzle_id):
@@ -174,7 +178,9 @@ def main():
     print(f"Puzzle #{puzzle_id}")
     print(f"Type: {puzzle['type']}")
     print(f"FEN: {puzzle['fen']}")
-    print(f"Solution: {puzzle['moves']}")
+    solutions = puzzle.get('solutions', {})
+    first_moves = list(solutions.keys())
+    print(f"First moves in solution: {first_moves}")
     print()
 
     mate_in = parse_mate_count(puzzle['type'])
@@ -196,19 +202,23 @@ def main():
         print(f"  {move}: {pv}")
 
     # Compare with puzzle solution
-    solution_first = puzzle['moves'].split(';')[0].replace('-', '')
     print()
-    print(f"Puzzle's expected first move: {solution_first}")
+    print(f"Puzzle's stored first move(s): {first_moves}")
 
-    matching = [m for m, _ in mate_moves if m == solution_first]
-    if len(mate_moves) > 1:
-        print(f"⚠️  Multiple valid first moves exist!")
-    elif len(mate_moves) == 1 and matching:
-        print("✓ Puzzle has unique solution")
-    elif len(mate_moves) == 0:
-        print("❌ No mate found (puzzle may be incorrect)")
-    elif not matching:
-        print(f"❌ Puzzle solution '{solution_first}' not among valid moves!")
+    found_moves = [m for m, _ in mate_moves]
+    missing = [m for m in first_moves if m not in found_moves]
+    extra = [m for m in found_moves if m not in first_moves]
+
+    if not first_moves:
+        print("❌ No solution stored in puzzle data")
+    elif missing:
+        print(f"❌ Stored move(s) not found by engine: {missing}")
+    elif extra:
+        print(f"⚠️  Engine found additional valid move(s): {extra}")
+    elif len(mate_moves) > 1:
+        print(f"✓ Multiple valid first moves, all accounted for")
+    else:
+        print("✓ Puzzle solution verified")
 
 
 if __name__ == "__main__":

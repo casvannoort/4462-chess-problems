@@ -1,0 +1,2 @@
+python-chess>=1.999
+python-dotenv>=1.0.0
