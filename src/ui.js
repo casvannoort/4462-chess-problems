@@ -55,7 +55,15 @@ function showError(message) {
 
 function updateTitle(problemId, moveCount, colorIndicator) {
   const { problemTitle } = getElements();
-  const title = `<span class="text-mc-emerald">#${problemId}</span> Mat in ${moveCount} · <span class="text-mc-gold">${colorIndicator}</span>`;
+  const isWhite = colorIndicator === "Wit";
+  const textStyle = isWhite
+    ? "color: white; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;"
+    : "color: black; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;";
+  const circleStyle = isWhite
+    ? "background: white; box-shadow: 0 0 0 1px #000;"
+    : "background: #1a1a1a; box-shadow: 0 0 0 1px #fff;";
+
+  const title = `<span class="text-mc-emerald">#${problemId}</span> Mat in ${moveCount} · <span style="${textStyle}"><span class="inline-block w-3 h-3 rounded-full" style="${circleStyle} vertical-align: 2px;"></span>&nbsp;${colorIndicator}</span>`;
   problemTitle.innerHTML = title;
   document.title = `#${problemId}`;
 }

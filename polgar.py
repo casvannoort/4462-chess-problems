@@ -64,11 +64,15 @@ def extract_pgn_moves(game):
 
 
 def solve_puzzle(puzzle_data):
-    """Worker function: solve a single puzzle with its own Stockfish instance."""
+    """Worker function: solve a single puzzle with its own Stockfish instance.
+
+    Uses iterative deepening: starts shallow and only goes deeper if needed.
+    """
     problemid, fen, move_type, first_move, mate_count, pgn_moves = puzzle_data
 
     # Each worker creates its own engine instance
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+    engine.configure({"Hash": 128})  # 128 MB hash table per engine
 
     try:
         solutions = {}
@@ -77,13 +81,52 @@ def solve_puzzle(puzzle_data):
 
             # Adaptive MultiPV: fewer candidates for mate in 1
             multipv = 20 if mate_count == 1 else 50
-            depth = mate_count * 4 + 2
 
-            info = engine.analyse(
-                board,
-                chess.engine.Limit(depth=depth),
-                multipv=multipv
-            )
+            # Iterative deepening: start shallow, go deeper only if needed
+            # Tuned per difficulty based on empirical testing
+            if mate_count == 1:
+                depth_levels = [1, 2, 4, 8]
+            elif mate_count == 2:
+                depth_levels = [8, 12, 18, 26]
+            elif mate_count == 3:
+                depth_levels = [10, 14, 20, 28]
+            else:
+                # Mate in 3+: use formula
+                depth_levels = [
+                    mate_count * 4 + 4,
+                    mate_count * 6 + 8,
+                    mate_count * 8 + 12,
+                    mate_count * 10 + 16,
+                ]
+
+            info = None
+            used_depth = 0
+            expected_pv_len = mate_count * 2 - 1  # Full line: first move + continuation
+            expected_cont_len = (mate_count - 1) * 2  # Continuation without first move
+
+            for depth in depth_levels:
+                info = engine.analyse(
+                    board,
+                    chess.engine.Limit(depth=depth),
+                    multipv=multipv
+                )
+
+                # Check if we found valid mate solutions with full continuation
+                found_complete = False
+                for pv_info in info:
+                    score = pv_info.get("score")
+                    if score and score.is_mate():
+                        mate_value = score.relative.mate()
+                        pv = pv_info.get("pv", [])
+                        cont_len = len(pv) - 1  # Continuation = PV minus first move
+                        # Accept only if correct mate count AND full continuation
+                        if mate_value == mate_count and cont_len >= expected_cont_len:
+                            found_complete = True
+                            break
+
+                if found_complete:
+                    used_depth = depth
+                    break  # Found complete solution
 
             # Get the original first move and continuation from polgar.pgn
             pgn_first_move = pgn_moves[0] if pgn_moves else None
@@ -99,7 +142,8 @@ def solve_puzzle(puzzle_data):
                             first = pv[0].uci()
 
                             # Prefer polgar.pgn continuation if this is the original first move
-                            if first == pgn_first_move and pgn_continuation:
+                            # AND the PGN has correct length (some PGN entries are incomplete)
+                            if first == pgn_first_move and len(pgn_continuation) == expected_cont_len:
                                 continuation = pgn_continuation
                             else:
                                 continuation = [m.uci() for m in pv[1:]]
@@ -111,7 +155,8 @@ def solve_puzzle(puzzle_data):
             "first": title_case(first_move),
             "type": title_case(move_type),
             "fen": fen,
-            "solutions": solutions
+            "solutions": solutions,
+            "_depth": used_depth  # Internal: for statistics
         }
     finally:
         engine.quit()
@@ -177,6 +222,76 @@ def main():
 
     # Sort by problem ID
     results.sort(key=lambda x: x["problemid"])
+
+    # Sanity checks
+    print(f"\nRunning sanity checks...", file=sys.stderr)
+    errors = []
+    warnings = []
+
+    for p in results:
+        pid = p["problemid"]
+        solutions = p["solutions"]
+        mate_count = parse_mate_count(p["type"])
+
+        # Check: solutions not empty
+        if not solutions:
+            errors.append(f"Puzzle {pid}: No solutions found")
+            continue
+
+        # Check: continuation length matches expected
+        # Expected: (mate_count - 1) * 2 moves (opponent + player alternating)
+        expected_continuation_len = (mate_count - 1) * 2 if mate_count else 0
+
+        for first_move, continuation in solutions.items():
+            if len(continuation) != expected_continuation_len:
+                # Stockfish found a shorter mate - update the type
+                actual_mate = len(continuation) // 2 + 1
+                number_words = {1: "One", 2: "Two", 3: "Three", 4: "Four"}
+                p["type"] = f"Mate in {number_words.get(actual_mate, actual_mate)} (Book: {mate_count})"
+                warnings.append(
+                    f"Puzzle {pid}: Labeled mate in {mate_count}, but found mate in {actual_mate}"
+                )
+
+    # Report results
+    if errors:
+        print(f"\nERRORS ({len(errors)}):", file=sys.stderr)
+        for e in errors:
+            print(f"  {e}", file=sys.stderr)
+
+    if warnings:
+        print(f"\nWARNINGS ({len(warnings)}):", file=sys.stderr)
+        for w in warnings[:20]:  # Show first 20
+            print(f"  {w}", file=sys.stderr)
+        if len(warnings) > 20:
+            print(f"  ... and {len(warnings) - 20} more", file=sys.stderr)
+
+    if not errors and not warnings:
+        print("All puzzles passed sanity checks!", file=sys.stderr)
+    else:
+        print(f"\nSummary: {len(errors)} errors, {len(warnings)} warnings", file=sys.stderr)
+
+    # Depth statistics per mate difficulty
+    print(f"\nDepth statistics by mate difficulty:", file=sys.stderr)
+    stats = {}  # {mate_count: {depth: count}}
+    for p in results:
+        mc = parse_mate_count(p["type"]) or 0
+        d = p.get("_depth", 0)
+        if mc not in stats:
+            stats[mc] = {}
+        stats[mc][d] = stats[mc].get(d, 0) + 1
+
+    for mate_count in sorted(stats.keys()):
+        depth_counts = stats[mate_count]
+        total = sum(depth_counts.values())
+        print(f"  Mate in {mate_count} ({total} puzzles):", file=sys.stderr)
+        for depth in sorted(depth_counts.keys()):
+            count = depth_counts[depth]
+            pct = 100 * count / total
+            print(f"    Depth {depth:2d}: {count:4d} ({pct:5.1f}%)", file=sys.stderr)
+
+    # Remove internal _depth field before output
+    for p in results:
+        p.pop("_depth", None)
 
     # Output JSON
     output = {"problems": results}

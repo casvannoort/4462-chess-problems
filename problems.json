@@ -5108,7 +5108,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "1rb1r1k1/2q1pp1p/p2p2pB/2pP4/1pP2Q2/1P1n4/P4PPP/2R1R1K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f4f6": [
+                    "a6a5",
+                    "f6g7"
+                ]
+            }
         },
         {
             "problemid": 501,
@@ -11471,7 +11476,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "r2k3r/p2Bp3/3Q4/1qp3Rp/7B/n1p5/4K3/6b1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d7b5": [
+                    "e7d6",
+                    "g5c5"
+                ]
+            }
         },
         {
             "problemid": 1027,
@@ -11814,7 +11824,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "3B4/2R5/pk2b3/1p3n2/8/8/3Q2qr/K7 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d2a5": [
+                    "b6a5",
+                    "c7c4"
+                ]
+            }
         },
         {
             "problemid": 1056,
@@ -11953,7 +11968,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "r2qrk2/1bp1b1pp/p1np4/1p1Q1NB1/4n3/2P5/PP3PPP/RN2R1K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f5h6": [
+                    "g7h6",
+                    "g5h6"
+                ]
+            }
         },
         {
             "problemid": 1068,
@@ -12916,7 +12936,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/2B5/3R4/4kp1K/4b3/2P5/5P2/q7 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f2f4": [
+                    "e5f4",
+                    "d6d3"
+                ]
+            }
         },
         {
             "problemid": 1146,
@@ -14575,7 +14600,12 @@
             "first": "Black to Move",
             "type": "Mate in Two",
             "fen": "2Rr2k1/pp3ppp/6r1/3pP3/4bP1q/1P2P2n/PB1R2BP/2Q2K2 b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e4d3": [
+                    "d2d3",
+                    "h4f2"
+                ]
+            }
         },
         {
             "problemid": 1284,
@@ -16386,7 +16416,12 @@
             "first": "Black to Move",
             "type": "Mate in Two",
             "fen": "6r1/1pQ2pk1/4qn1p/p3p1p1/1Pb1P3/P1P1B1P1/2B2PKP/8 b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e6h3": [
+                    "g2f3",
+                    "g5g4"
+                ]
+            }
         },
         {
             "problemid": 1434,
@@ -16851,8 +16886,8 @@
             "fen": "5QKB/2P5/8/3k4/8/1R4N1/8/8 w - - 0 1",
             "solutions": {
                 "g3e4": [
-                    "d5e6",
-                    "f8f7"
+                    "d5e4",
+                    "f8f3"
                 ]
             }
         },
@@ -16887,8 +16922,8 @@
             "fen": "8/8/8/4Q3/8/6R1/2n1pkBK/8 w - - 0 1",
             "solutions": {
                 "g3d3": [
-                    "c2e3",
-                    "e5g3"
+                    "e2e1r",
+                    "d3f3"
                 ]
             }
         },
@@ -16897,7 +16932,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/8/6pp/2Q5/6k1/3K1R2/8/3B4 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "c5e3": [
+                    "g6g5",
+                    "f3f4"
+                ]
+            }
         },
         {
             "problemid": 1477,
@@ -18262,8 +18302,8 @@
             "fen": "4K1Nk/5Q2/8/8/8/8/5p2/1b6 w - - 0 1",
             "solutions": {
                 "g8e7": [
-                    "f2f1n",
-                    "f7g8"
+                    "b1a2",
+                    "e7g6"
                 ]
             }
         },
@@ -18526,8 +18566,8 @@
             "fen": "8/8/3K4/1k6/8/2Q5/8/3B4 w - - 0 1",
             "solutions": {
                 "c3c7": [
-                    "b5b4",
-                    "c7c5"
+                    "b5a6",
+                    "d1e2"
                 ]
             }
         },
@@ -18622,8 +18662,8 @@
             "fen": "5r2/8/8/8/8/5p1K/8/RB4Bk w - - 0 1",
             "solutions": {
                 "g1b6": [
-                    "f8d8",
-                    "b1d3"
+                    "f8e8",
+                    "b1e4"
                 ]
             }
         },
@@ -18686,7 +18726,7 @@
             "fen": "k1B5/3N4/2n5/1N6/8/6KQ/8/8 w - - 0 1",
             "solutions": {
                 "h3h8": [
-                    "c6d4",
+                    "c6a5",
                     "c8a6"
                 ]
             }
@@ -18722,8 +18762,8 @@
             "fen": "8/6Q1/8/8/1K6/8/8/1kN5 w - - 0 1",
             "solutions": {
                 "b4c3": [
-                    "b1c1",
-                    "g7g1"
+                    "b1a1",
+                    "c3c2"
                 ]
             }
         },
@@ -19116,7 +19156,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "3K4/6n1/4kN2/7B/5Q2/3P4/8/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f6e8": [
+                    "g7f5",
+                    "f4e4"
+                ]
+            }
         },
         {
             "problemid": 1662,
@@ -19161,7 +19206,7 @@
             "fen": "Bk2N3/8/1P6/1K3Q2/5b2/8/8/8 w - - 0 1",
             "solutions": {
                 "f5f8": [
-                    "b8c8",
+                    "f4g5",
                     "e8f6"
                 ]
             }
@@ -19221,8 +19266,8 @@
             "fen": "R1n5/n5K1/8/8/8/8/7k/4BQ2 w - - 0 1",
             "solutions": {
                 "g7f6": [
-                    "c8d6",
-                    "a8h8"
+                    "a7b5",
+                    "a8a2"
                 ]
             }
         },
@@ -19773,8 +19818,8 @@
             "fen": "8/8/8/3NP3/1N1kp1Q1/1K6/8/8 w - - 0 1",
             "solutions": {
                 "b4d3": [
-                    "d4d3",
-                    "g4d1"
+                    "d4d5",
+                    "g4d7"
                 ]
             }
         },
@@ -19975,7 +20020,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "k7/pq1N4/3R3K/8/8/8/6B1/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d6c6": [
+                    "b7b8",
+                    "c6c8"
+                ]
+            }
         },
         {
             "problemid": 1734,
@@ -20224,8 +20274,8 @@
             "fen": "8/3KN3/8/4k3/5p2/5Q1R/8/8 w - - 0 1",
             "solutions": {
                 "h3g3": [
-                    "f4g3",
-                    "e7c6"
+                    "e5d4",
+                    "f3d5"
                 ]
             }
         },
@@ -20320,7 +20370,7 @@
             "fen": "8/8/2KR4/2ppk3/2r5/5Q2/8/8 w - - 0 1",
             "solutions": {
                 "c6d7": [
-                    "c4d4",
+                    "d5d4",
                     "d6e6"
                 ]
             }
@@ -20332,8 +20382,8 @@
             "fen": "8/5Bkp/7N/8/3K4/6B1/8/7R w - - 0 1",
             "solutions": {
                 "h1g1": [
-                    "g7h6",
-                    "g3f4"
+                    "g7f8",
+                    "g3d6"
                 ]
             }
         },
@@ -20882,7 +20932,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/8/8/kN5K/2Q5/8/3q4/4BB2 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "c4c5": [
+                    "d2e1",
+                    "b5c3"
+                ]
+            }
         },
         {
             "problemid": 1810,
@@ -21121,7 +21176,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/4Q3/4n3/1K2k3/4P3/3P4/6R1/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g2g3": [
+                    "e5f4",
+                    "e7d6"
+                ]
+            }
         },
         {
             "problemid": 1830,
@@ -22172,7 +22232,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "kr6/1R6/4K1Q1/8/8/p7/8/7B w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g6b1": [
+                    "b8c8",
+                    "b7c7"
+                ]
+            }
         },
         {
             "problemid": 1918,
@@ -22181,8 +22246,8 @@
             "fen": "8/8/kr6/1NB5/8/KN1Q4/8/8 w - - 0 1",
             "solutions": {
                 "d3e4": [
-                    "a6b5",
-                    "e4a4"
+                    "b6e6",
+                    "b5c7"
                 ]
             }
         },
@@ -23117,8 +23182,8 @@
             "fen": "2K5/B7/N3R3/1k6/8/7R/8/1B6 w - - 0 1",
             "solutions": {
                 "e6e5": [
-                    "b5c6",
-                    "h3h6"
+                    "b5a4",
+                    "b1c2"
                 ]
             }
         },
@@ -23225,7 +23290,7 @@
             "fen": "3K4/8/8/4B3/nk6/3Q4/2P5/R7 w - - 0 1",
             "solutions": {
                 "d8c7": [
-                    "b4a5",
+                    "a4c5",
                     "e5c3"
                 ]
             }
@@ -23943,7 +24008,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/8/5K2/8/4R3/5kN1/6R1/3n3B w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g3e2": [
+                    "d1b2",
+                    "g2h2"
+                ]
+            }
         },
         {
             "problemid": 2066,
@@ -24612,8 +24682,8 @@
             "fen": "N5Q1/nkPP4/8/8/4K3/8/8/8 w - - 0 1",
             "solutions": {
                 "g8a2": [
-                    "b7c6",
-                    "a2d5"
+                    "a7c8",
+                    "d7d8n"
                 ]
             }
         },
@@ -24898,7 +24968,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "k7/2Q2K2/8/3R4/4BR2/1q6/8/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f7g8": [
+                    "b3g3",
+                    "d5g5"
+                ]
+            }
         },
         {
             "problemid": 2146,
@@ -25099,8 +25174,8 @@
             "fen": "8/5Q2/8/8/6k1/5N2/5K2/8 w - - 0 1",
             "solutions": {
                 "f7f6": [
-                    "g4h3",
-                    "f6e6"
+                    "g4h5",
+                    "f6g5"
                 ]
             }
         },
@@ -26215,7 +26290,7 @@
             "fen": "8/3b4/1R5Q/k2KR3/r7/8/8/8 w - - 0 1",
             "solutions": {
                 "h6c6": [
-                    "a4a3",
+                    "a4g4",
                     "d5d6"
                 ]
             }
@@ -26239,8 +26314,8 @@
             "fen": "R7/B7/B7/8/8/2p4r/8/k1K5 w - - 0 1",
             "solutions": {
                 "a7b6": [
-                    "c3c2",
-                    "a6d3"
+                    "h3h4",
+                    "a6c4"
                 ]
             }
         },
@@ -26417,7 +26492,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/8/4Qn2/8/8/5k1K/5pN1/5n2 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e6e5": [
+                    "f6g4",
+                    "g2h4"
+                ]
+            }
         },
         {
             "problemid": 2273,
@@ -26484,7 +26564,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "K7/8/2p3Q1/4k3/8/4B3/1N4P1/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e3c5": [
+                    "e5d5",
+                    "g6f5"
+                ]
+            }
         },
         {
             "problemid": 2279,
@@ -26721,8 +26806,8 @@
             "fen": "4N3/8/8/8/4k1BK/8/3Q4/8 w - - 0 1",
             "solutions": {
                 "g4e6": [
-                    "e4e5",
-                    "d2e3"
+                    "e4f3",
+                    "e6d5"
                 ]
             }
         },
@@ -26853,8 +26938,8 @@
             "fen": "1n6/Np1p4/5K2/3k4/1Q6/8/8/8 w - - 0 1",
             "solutions": {
                 "a7c8": [
-                    "b8c6",
-                    "c8b6"
+                    "b8a6",
+                    "c8e7"
                 ]
             }
         },
@@ -26923,7 +27008,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/8/8/2p5/B1R5/8/6R1/3r1k1K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a4b5": [
+                    "d1a1",
+                    "c4c1"
+                ]
+            }
         },
         {
             "problemid": 2316,
@@ -27004,8 +27094,8 @@
             "fen": "7R/6kn/2p2R2/2Q5/5K2/8/8/8 w - - 0 1",
             "solutions": {
                 "f6h6": [
-                    "g7h8",
-                    "c5f8"
+                    "g7h6",
+                    "c5g5"
                 ]
             }
         },
@@ -27016,8 +27106,8 @@
             "fen": "R3nk2/1Q6/6b1/4R3/8/8/8/4K3 w - - 0 1",
             "solutions": {
                 "e5g5": [
-                    "g6f7",
-                    "b7b4"
+                    "g6b1",
+                    "b7g7"
                 ]
             }
         },
@@ -27076,8 +27166,8 @@
             "fen": "8/N7/3p4/KN6/P1k5/5Q2/8/8 w - - 0 1",
             "solutions": {
                 "f3d1": [
-                    "c4c5",
-                    "d1d4"
+                    "d6d5",
+                    "d1c2"
                 ]
             }
         },
@@ -27160,7 +27250,7 @@
             "fen": "8/4Q3/8/8/3p4/3k3B/8/2K2R2 w - - 0 1",
             "solutions": {
                 "h3e6": [
-                    "d3e2",
+                    "d3e3",
                     "e6c4"
                 ]
             }
@@ -27196,8 +27286,8 @@
             "fen": "8/4Q3/8/4bk1K/8/8/4N2p/7B w - - 0 1",
             "solutions": {
                 "e2f4": [
-                    "e5f4",
-                    "h1e4"
+                    "e5a1",
+                    "e7g5"
                 ]
             }
         },
@@ -27346,7 +27436,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "7Q/2p5/1P1N3R/3k4/8/2K5/8/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "h8e8": [
+                    "c7d6",
+                    "h6h5"
+                ]
+            }
         },
         {
             "problemid": 2351,
@@ -27389,7 +27484,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "6rk/6RB/7P/8/K7/8/8/7Q w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "h1a1": [
+                    "g8a8",
+                    "g7a7"
+                ]
+            }
         },
         {
             "problemid": 2355,
@@ -27530,8 +27630,8 @@
             "fen": "Rn6/1k6/2R1P3/8/8/3Q4/8/1K6 w - - 0 1",
             "solutions": {
                 "c6c8": [
-                    "b7b6",
-                    "d3b3"
+                    "b8d7",
+                    "d3a6"
                 ]
             }
         },
@@ -28248,7 +28348,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/8/8/2q5/Q7/2k1N3/8/K2R4 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a1a2": [
+                    "c5d4",
+                    "a4d4"
+                ]
+            }
         },
         {
             "problemid": 2426,
@@ -28303,7 +28408,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "5k1B/3KbP2/4R3/8/8/8/5Q2/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f2a2": [
+                    "f8f7",
+                    "e6f6"
+                ]
+            }
         },
         {
             "problemid": 2431,
@@ -28326,10 +28436,6 @@
                 "f4e3": [
                     "a2c1",
                     "e3c1"
-                ],
-                "d1a1": [
-                    "b2a1",
-                    "f4c1"
                 ]
             }
         },
@@ -28710,7 +28816,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "k7/6Rq/N7/8/4R3/5B2/2K5/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "c2b3": [
+                    "h7h1",
+                    "e4e8"
+                ]
+            }
         },
         {
             "problemid": 2465,
@@ -28767,7 +28878,7 @@
             "fen": "7B/6R1/1r1r4/8/8/K7/8/k4B2 w - - 0 1",
             "solutions": {
                 "g7g1": [
-                    "d6f6",
+                    "d6d4",
                     "f1b5"
                 ]
             }
@@ -29091,8 +29202,8 @@
             "fen": "8/6p1/6B1/2K5/6N1/8/P2k4/5Q2 w - - 0 1",
             "solutions": {
                 "g4e5": [
-                    "d2e3",
-                    "e5c4"
+                    "d2c3",
+                    "f1c1"
                 ]
             }
         },
@@ -29259,7 +29370,7 @@
             "fen": "8/5N2/6Bp/8/4P1k1/6B1/6K1/8 w - - 0 1",
             "solutions": {
                 "g2f2": [
-                    "g4h3",
+                    "h6h5",
                     "g6f5"
                 ]
             }
@@ -29671,8 +29782,8 @@
             "fen": "8/2R5/6p1/4Q3/6kp/4K3/7P/8 w - - 0 1",
             "solutions": {
                 "c7h7": [
-                    "g6g5",
-                    "e5e6"
+                    "g4h3",
+                    "e5g3"
                 ]
             }
         },
@@ -29979,8 +30090,8 @@
             "fen": "8/5K2/3N4/1B1k4/8/8/3B4/Q7 w - - 0 1",
             "solutions": {
                 "d2a5": [
-                    "d5d6",
-                    "a1d4"
+                    "d5c5",
+                    "a1e5"
                 ]
             }
         },
@@ -30303,7 +30414,7 @@
             "fen": "8/8/5p1K/5k2/8/6Pb/4Q2B/8 w - - 0 1",
             "solutions": {
                 "e2c4": [
-                    "f5e5",
+                    "h3f1",
                     "g3g4"
                 ]
             }
@@ -30327,7 +30438,7 @@
             "fen": "k7/3NQ3/N7/8/2Kb4/8/8/R7 w - - 0 1",
             "solutions": {
                 "c4b5": [
-                    "d4a1",
+                    "a8b7",
                     "d7b6"
                 ]
             }
@@ -30431,8 +30542,8 @@
             "fen": "r3k3/n2N4/7K/3Q4/8/7B/8/8 w - - 0 1",
             "solutions": {
                 "d5d6": [
-                    "e8f7",
-                    "d6e6"
+                    "a7b5",
+                    "d6f8"
                 ]
             }
         },
@@ -30537,7 +30648,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "7Q/8/8/K7/8/7B/6RB/6rk w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "h8a8": [
+                    "g1e1",
+                    "g2e2"
+                ]
+            }
         },
         {
             "problemid": 2615,
@@ -30638,8 +30754,8 @@
             "fen": "8/8/8/8/3K4/3n1BB1/4Qn2/6k1 w - - 0 1",
             "solutions": {
                 "f3h1": [
-                    "d3c1",
-                    "e2e1"
+                    "g1h1",
+                    "e2f1"
                 ]
             }
         },
@@ -30944,10 +31060,6 @@
                 "g6h5": [
                     "g1h1",
                     "h4f2"
-                ],
-                "f3f1": [
-                    "g1h2",
-                    "g6g3"
                 ]
             }
         },
@@ -30970,8 +31082,8 @@
             "fen": "7r/k7/1NQ5/2K3p1/3B4/8/8/8 w - - 0 1",
             "solutions": {
                 "c5d5": [
-                    "h8c8",
-                    "b6d7"
+                    "a7a6",
+                    "b6c4"
                 ]
             }
         },
@@ -31760,7 +31872,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "kr6/BR6/B7/8/8/7K/8/Q7 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a1h1": [
+                    "b8g8",
+                    "b7g7"
+                ]
+            }
         },
         {
             "problemid": 2714,
@@ -31941,7 +32058,7 @@
             "fen": "8/8/8/1N6/5K2/5p1B/4k3/2Q5 w - - 0 1",
             "solutions": {
                 "b5a3": [
-                    "e2d3",
+                    "e2f2",
                     "c1e3"
                 ]
             }
@@ -32757,8 +32874,8 @@
             "fen": "1k6/8/3K4/8/6B1/8/8/7Q w - - 0 1",
             "solutions": {
                 "g4c8": [
-                    "b8a7",
-                    "h1b7"
+                    "b8c8",
+                    "h1a8"
                 ]
             }
         },
@@ -32805,8 +32922,8 @@
             "fen": "7R/7P/8/8/4b3/K7/8/k4B1R w - - 0 1",
             "solutions": {
                 "h8b8": [
-                    "e4h7",
-                    "f1d3"
+                    "e4b7",
+                    "f1g2"
                 ]
             }
         },
@@ -32995,7 +33112,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "6Q1/2RB4/p7/1p6/1k6/8/K7/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g8d8": [
+                    "b4a5",
+                    "c7c4"
+                ]
+            }
         },
         {
             "problemid": 2816,
@@ -33230,7 +33352,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "4r3/4r3/8/8/8/8/R6R/3N1k1K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a2a1": [
+                    "e7d7",
+                    "d1e3"
+                ]
+            }
         },
         {
             "problemid": 2836,
@@ -34023,8 +34150,8 @@
             "fen": "2K5/8/2p1N1B1/8/2k5/8/1Q3P2/8 w - - 0 1",
             "solutions": {
                 "g6f7": [
-                    "c6c5",
-                    "e6f4"
+                    "c4d3",
+                    "e6c5"
                 ]
             }
         },
@@ -34047,8 +34174,8 @@
             "fen": "8/8/8/2N5/1p1K4/1B2B3/1k1N4/8 w - - 0 1",
             "solutions": {
                 "d4e4": [
-                    "b2a1",
-                    "e3d4"
+                    "b2c3",
+                    "c5a4"
                 ]
             }
         },
@@ -39659,7 +39786,7 @@
             "fen": "1K1k4/Rp1P4/4PP2/8/8/8/8/8 w - - 0 1",
             "solutions": {
                 "a7a8": [
-                    "b7b5",
+                    "b7b6",
                     "b8b7"
                 ]
             }
@@ -39849,7 +39976,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/8/8/kP6/N7/8/KR6/R7 w - - 1 2",
-            "solutions": {}
+            "solutions": {
+                "b2b3": [
+                    "a5a4",
+                    "a2b2"
+                ]
+            }
         },
         {
             "problemid": 3387,
@@ -39940,7 +40072,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "b7/6B1/5K2/8/3kP2R/8/8/2Q5 w - - 3 2",
-            "solutions": {}
+            "solutions": {
+                "h4h3": [
+                    "a8b7",
+                    "f6f5"
+                ]
+            }
         },
         {
             "problemid": 3395,
@@ -40021,7 +40158,7 @@
             "fen": "2k5/r2R4/1PN2K2/8/8/8/2Q5/8 w - - 0 1",
             "solutions": {
                 "c2a2": [
-                    "a7a3",
+                    "a7a4",
                     "d7c7"
                 ]
             }
@@ -40261,8 +40398,8 @@
             "fen": "2K2B2/8/1kN1R3/8/Q7/2q5/8/8 w - - 0 1",
             "solutions": {
                 "f8e7": [
-                    "c3a3",
-                    "c6b4"
+                    "c3e1",
+                    "c6e5"
                 ]
             }
         },
@@ -40815,7 +40952,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "2B5/1Qp5/3k1BK1/8/3p4/8/8/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "c8e6": [
+                    "d6e6",
+                    "b7c6"
+                ]
+            }
         },
         {
             "problemid": 3468,
@@ -40848,8 +40990,8 @@
             "fen": "8/p7/3Q4/1k6/3K4/8/2B5/8 w - - 0 1",
             "solutions": {
                 "d6c7": [
-                    "b5a6",
-                    "c2d3"
+                    "a7a5",
+                    "c7b7"
                 ]
             }
         },
@@ -41674,7 +41816,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "4R3/1p2N1p1/1n4p1/1pp1k3/2P4r/5Q1b/p1K5/qn3R2 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f3f6": [
+                    "e5e4",
+                    "f1e1"
+                ]
+            }
         },
         {
             "problemid": 3539,
@@ -41969,7 +42116,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/b1nr4/6BR/1p1k2P1/1P3PK1/2Q1P3/5q2/1bn5 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "c3c6": [
+                    "d5c6",
+                    "g6e4"
+                ]
+            }
         },
         {
             "problemid": 3564,
@@ -42084,7 +42236,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "8/2b5/8/1n6/2Np1p2/2pN1K2/1p6/1B1kB3 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e1d2": [
+                    "b5a7",
+                    "d3f2"
+                ]
+            }
         },
         {
             "problemid": 3574,
@@ -42299,7 +42456,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "3b4/1r4pr/p7/1p1pN3/3pR3/3p1RPk/7p/Kb5B w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e5g4": [
+                    "b7b8",
+                    "g4f2"
+                ]
+            }
         },
         {
             "problemid": 3592,
@@ -42452,8 +42614,8 @@
             "fen": "8/8/3n1n2/2N1k1N1/3n1n2/4N3/8/1K6 w - - 0 1",
             "solutions": {
                 "b1a2": [
-                    "f6h7",
-                    "c5d7"
+                    "d4b3",
+                    "g5f3"
                 ]
             }
         },
@@ -43418,7 +43580,12 @@
             "first": "White to Move",
             "type": "Mate in Two",
             "fen": "2b1n1N1/B4r2/4p3/2N1k2p/1pP4p/1K3P2/3pP3/1Bq3Q1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g1d4": [
+                    "e5d4",
+                    "c5d7"
+                ]
+            }
         },
         {
             "problemid": 3685,
@@ -43841,7 +44008,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "4rr2/2p1n1R1/pq1pkp2/1N6/BpppN1P1/b5B1/8/3K3Q w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e4c5": [
+                    "b6c5",
+                    "b5c7",
+                    "c5c7",
+                    "h1e4"
+                ]
+            }
         },
         {
             "problemid": 3720,
@@ -43868,12 +44042,6 @@
                     "c3d5",
                     "e6d5",
                     "f5e5"
-                ],
-                "c3d5": [
-                    "e6d5",
-                    "e5g6",
-                    "f7g6",
-                    "c1g5"
                 ]
             }
         },
@@ -44532,7 +44700,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "5k2/r2R2n1/2n3P1/2N5/3p4/Q5b1/P2q3r/K7 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "c5e6": [
+                    "f8e8",
+                    "a3e7",
+                    "c6e7",
+                    "d7d8"
+                ]
+            }
         },
         {
             "problemid": 3769,
@@ -44553,7 +44728,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "3kq2r/p1n2pbp/6p1/PbB5/4Q3/6PB/5P1P/2R3K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "c5e7": [
+                    "e8e7",
+                    "e4a8",
+                    "c7a8",
+                    "c1c8"
+                ]
+            }
         },
         {
             "problemid": 3771,
@@ -44616,7 +44798,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "2q2rk1/5Npp/4Q3/8/8/8/6PP/7K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f7h6": [
+                    "g8h8",
+                    "e6g8",
+                    "f8g8",
+                    "h6f7"
+                ]
+            }
         },
         {
             "problemid": 3776,
@@ -44651,7 +44840,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "3r3k/pbp1N1pp/3q4/2p1nR2/2B4Q/P3P3/1PP3P1/2K5 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e7g6": [
+                    "d6g6",
+                    "h4d8",
+                    "g6e8",
+                    "d8e8"
+                ]
+            }
         },
         {
             "problemid": 3779,
@@ -44994,7 +45190,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "8/8/3p4/r2Rb3/2P5/pN6/k1K5/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d5d1": [
+                    "a5a6",
+                    "d1a1",
+                    "e5a1",
+                    "b3c1"
+                ]
+            }
         },
         {
             "problemid": 3804,
@@ -45029,7 +45232,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r4b1r/ppp3pp/8/4p3/2Pq2Q1/3k4/PP1P1PPP/1bB1K2R w K - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g4e2": [
+                    "d3c2",
+                    "d2d3",
+                    "c2c1",
+                    "e1g1"
+                ]
+            }
         },
         {
             "problemid": 3807,
@@ -45134,7 +45344,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "3r3k/4rpp1/p2qpN1p/1p6/4pP1Q/P5R1/1PP3PP/5R1K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "h4g5": [
+                    "d8g8",
+                    "g5h6",
+                    "g7h6",
+                    "g3g8"
+                ]
+            }
         },
         {
             "problemid": 3815,
@@ -45413,7 +45630,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "2r1b1k1/5r1p/3p1QpB/q2Pp3/1pp1P3/5R1P/P4PP1/4R1K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f6e7": [
+                    "a5c7",
+                    "e7f8",
+                    "f7f8",
+                    "f3f8"
+                ]
+            }
         },
         {
             "problemid": 3835,
@@ -45574,7 +45798,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "n7/kr1P4/8/Kp6/8/8/8/7Q w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d7d8n": [
+                    "b7b6",
+                    "h1b7",
+                    "b6b7",
+                    "d8c6"
+                ]
+            }
         },
         {
             "problemid": 3847,
@@ -45707,14 +45938,28 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "N5Q1/8/2kp1q2/4p3/Pp6/4Bb2/2K5/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g8c8": [
+                    "c6d5",
+                    "c8c4",
+                    "d5c4",
+                    "a8b6"
+                ]
+            }
         },
         {
             "problemid": 3857,
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "B1k1K3/3p4/Nb1P4/q1nQ4/8/8/8/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a8b7": [
+                    "c5b7",
+                    "d5c6",
+                    "d7c6",
+                    "d6d7"
+                ]
+            }
         },
         {
             "problemid": 3858,
@@ -45923,12 +46168,6 @@
                     "d4e4",
                     "e2e4",
                     "f2f3"
-                ],
-                "d6e6": [
-                    "a8e8",
-                    "e6e4",
-                    "e8e4",
-                    "f2f3"
                 ]
             }
         },
@@ -46007,7 +46246,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r6k/pppnNr1p/5p1Q/2q2N2/2n2P2/4R3/PPP3PP/6K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e7g6": [
+                    "h8g8",
+                    "h6g7",
+                    "f7g7",
+                    "f5h6"
+                ]
+            }
         },
         {
             "problemid": 3879,
@@ -46015,6 +46261,12 @@
             "type": "Mate in Three",
             "fen": "2r4k/1p1b3p/p3p3/3pPp2/1P3Q2/6RK/1qp5/7R w - - 0 1",
             "solutions": {
+                "f4h4": [
+                    "b2e5",
+                    "h4h7",
+                    "h8h7",
+                    "h3g2"
+                ],
                 "f4h6": [
                     "b2e5",
                     "h6h7",
@@ -46202,7 +46454,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "2b3r1/1r3p1p/3Qp1k1/p3R3/2PB1P2/8/PPq3PP/3R2K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e5g5": [
+                    "g6h6",
+                    "d6f8",
+                    "g8f8",
+                    "d4g7"
+                ]
+            }
         },
         {
             "problemid": 3893,
@@ -46321,7 +46580,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r2k1r2/pp1b2pp/1b2Pn2/2p5/Q1B2Bq1/2P5/P5PP/3R1RK1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d1d7": [
+                    "d8c8",
+                    "a4c6",
+                    "b7c6",
+                    "c4a6"
+                ]
+            }
         },
         {
             "problemid": 3902,
@@ -46684,7 +46950,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "8/5Q1p/3N1npk/8/R4P2/P6P/6PK/4qr2 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d6f5": [
+                    "h6h5",
+                    "f7h7",
+                    "f6h7",
+                    "g2g4"
+                ]
+            }
         },
         {
             "problemid": 3928,
@@ -46809,14 +47082,28 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "2r3kr/ppp2p1p/2n4B/b4q1N/2p5/2Pp4/PP2RPPP/R2Q2K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e2e8": [
+                    "c8e8",
+                    "d1g4",
+                    "f5g4",
+                    "h5f6"
+                ]
+            }
         },
         {
             "problemid": 3937,
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "k7/pb6/1p1Q4/N4q2/5pr1/8/6PP/3R3K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d6c6": [
+                    "b7c6",
+                    "d1d8",
+                    "f5c8",
+                    "d8c8"
+                ]
+            }
         },
         {
             "problemid": 3938,
@@ -46879,7 +47166,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "1n2kb1r/p2r1ppp/4q3/1B2p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 0 1",
-            "solutions": {}
+            "solutions": {
+                "b5d7": [
+                    "b8d7",
+                    "b3b8",
+                    "d7b8",
+                    "d1d8"
+                ]
+            }
         },
         {
             "problemid": 3943,
@@ -46942,14 +47236,28 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "2k1N3/3pK3/P2P4/1q6/1r2Q3/8/8/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e4a8": [
+                    "b5b8",
+                    "a8c6",
+                    "d7c6",
+                    "d6d7"
+                ]
+            }
         },
         {
             "problemid": 3948,
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "k6r/rb3R1p/NQ4p1/2p2n2/1p6/8/PPn3PP/6K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "b6c7": [
+                    "h8c8",
+                    "c7b8",
+                    "c8b8",
+                    "a6c7"
+                ]
+            }
         },
         {
             "problemid": 3949,
@@ -46998,7 +47306,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "rn1q2rk/pp3p1p/2p4Q/3p4/7P/2NP2R1/PPP3P1/4RK2 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e1e8": [
+                    "d8g5",
+                    "g3g5",
+                    "g8e8",
+                    "h6g7"
+                ]
+            }
         },
         {
             "problemid": 3953,
@@ -47117,7 +47432,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r1bq4/pppn1R2/3p1n2/4P1kp/3P2p1/3Q4/PPP3P1/RN4K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f7g7": [
+                    "g5h4",
+                    "d3h3",
+                    "g4h3",
+                    "g2g3"
+                ]
+            }
         },
         {
             "problemid": 3962,
@@ -47208,7 +47530,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "5r2/ppR2Nbk/1n3qp1/1b5p/8/1B6/P2Q1PPP/3R3K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d2h6": [
+                    "h7g8",
+                    "h6h8",
+                    "g7h8",
+                    "f7h6"
+                ]
+            }
         },
         {
             "problemid": 3969,
@@ -47243,14 +47572,28 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "1r6/4R1pk/2p1p2p/p2pP2N/3P3Q/1rP2P1P/4q1P1/7K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "h5f6": [
+                    "h7h8",
+                    "h4h6",
+                    "g7h6",
+                    "e7h7"
+                ]
+            }
         },
         {
             "problemid": 3972,
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "3krn2/p1p1p3/3n4/2N2b1q/Q7/6p1/4P1P1/1R4K1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "b1b8": [
+                    "f5c8",
+                    "a4d7",
+                    "f8d7",
+                    "c5e6"
+                ]
+            }
         },
         {
             "problemid": 3973,
@@ -47459,7 +47802,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "8/8/8/2N5/8/2k1N3/Q3r2q/K7 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a2c4": [
+                    "c3d2",
+                    "c4c1",
+                    "d2c1",
+                    "c5b3"
+                ]
+            }
         },
         {
             "problemid": 3988,
@@ -47480,7 +47830,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "kr3q2/ppp5/Q6p/2P5/B7/5n2/5P2/1R5K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a4c6": [
+                    "f8c8",
+                    "a6a7",
+                    "a8a7",
+                    "b1a1"
+                ]
+            }
         },
         {
             "problemid": 3990,
@@ -47543,7 +47900,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "2R3rk/3N4/7K/3N4/8/8/r4p2/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d5f6": [
+                    "g8c8",
+                    "d7e5",
+                    "f2f1q",
+                    "e5g6"
+                ]
+            }
         },
         {
             "problemid": 3995,
@@ -47579,22 +47943,16 @@
             "type": "Mate in Three",
             "fen": "4RB2/8/p7/2nN4/k1PP2n1/2K5/1P6/8 w - - 0 1",
             "solutions": {
-                "f8c5": [
-                    "g4e3",
-                    "d5b6",
-                    "a4a5",
-                    "b2b4"
-                ],
-                "d4c5": [
-                    "a4a5",
-                    "d5b6",
-                    "g4h6",
-                    "b2b4"
-                ],
                 "d5b6": [
                     "a4a5",
                     "f8c5",
                     "g4f2",
+                    "b2b4"
+                ],
+                "f8c5": [
+                    "g4e3",
+                    "d5b6",
+                    "a4a5",
                     "b2b4"
                 ]
             }
@@ -47960,7 +48318,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "6k1/5p2/p5np/4B3/3P4/1PP1q3/P3r1QP/6RK w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g2a8": [
+                    "g8h7",
+                    "a8h8",
+                    "g6h8",
+                    "g1g7"
+                ]
+            }
         },
         {
             "problemid": 4024,
@@ -48009,7 +48374,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "q7/k7/P3n3/1P2B3/K2pQ3/8/8/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e4h7": [
+                    "a7b6",
+                    "h7c7",
+                    "e6c7",
+                    "e5d4"
+                ]
+            }
         },
         {
             "problemid": 4028,
@@ -48268,7 +48640,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "1r4rk/5ppp/q2b4/5P1Q/7N/5R2/6P1/7K w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "h4g6": [
+                    "f7g6",
+                    "h5h7",
+                    "h8h7",
+                    "f3h3"
+                ]
+            }
         },
         {
             "problemid": 4047,
@@ -48351,12 +48730,6 @@
                     "d3h7",
                     "g8h8",
                     "b4f8"
-                ],
-                "d3h7": [
-                    "g8f8",
-                    "e7f7",
-                    "f8e8",
-                    "f7f8"
                 ]
             }
         },
@@ -48365,7 +48738,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "3B4/7R/p1k1b3/1p3n2/8/8/3Q2qr/K7 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "h7c7": [
+                    "c6b6",
+                    "d2a5",
+                    "b6a5",
+                    "c7c4"
+                ]
+            }
         },
         {
             "problemid": 4054,
@@ -48456,7 +48836,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r1b2r2/pppp1p2/6kp/6NN/4P3/8/PPP1B1PP/R4RK1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f1f6": [
+                    "g6g5",
+                    "g2g3",
+                    "d7d6",
+                    "h2h4"
+                ]
+            }
         },
         {
             "problemid": 4061,
@@ -48547,7 +48934,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "rn6/3p4/1Bk5/4Q3/2N5/n7/3b4/K7 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e5c5": [
+                    "c6b7",
+                    "c5c8",
+                    "b7c8",
+                    "c4d6"
+                ]
+            }
         },
         {
             "problemid": 4068,
@@ -48624,7 +49018,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r1bqrb1k/pp1n1Qpp/5p2/1p3N2/3P4/2PB4/P4PPP/R4RK1 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f5h6": [
+                    "f8d6",
+                    "f7g8",
+                    "e8g8",
+                    "h6f7"
+                ]
+            }
         },
         {
             "problemid": 4074,
@@ -48895,12 +49296,6 @@
                     "g2g3",
                     "h4h3",
                     "e6f4"
-                ],
-                "f1f5": [
-                    "g6e5",
-                    "g2g3",
-                    "h4h3",
-                    "e6f4"
                 ]
             }
         },
@@ -48951,7 +49346,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r3r2k/pp5p/3p4/q1pR2B1/2P1Q3/2b5/P5R1/2K5 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g5f6": [
+                    "c3f6",
+                    "e4h7",
+                    "h8h7",
+                    "d5h5"
+                ]
+            }
         },
         {
             "problemid": 4097,
@@ -49202,12 +49604,6 @@
                     "c2a3",
                     "a4a3",
                     "d2c2"
-                ],
-                "c2e3": [
-                    "f5e3",
-                    "d2c2",
-                    "e3c2",
-                    "b3d2"
                 ]
             }
         },
@@ -49230,7 +49626,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "K6k/1p4R1/p3N2P/b2p2p1/B1p5/2p5/1r6/8 w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "a4c2": [
+                    "a5b4",
+                    "e6g5",
+                    "a6a5",
+                    "g5f7"
+                ]
+            }
         },
         {
             "problemid": 4117,
@@ -49242,6 +49645,12 @@
                     "c4c3",
                     "e5f3",
                     "c3c2",
+                    "g2g1"
+                ],
+                "g4h2": [
+                    "c5e6",
+                    "h2f3",
+                    "e6f8",
                     "g2g1"
                 ]
             }
@@ -49265,7 +49674,14 @@
             "first": "White to Move",
             "type": "Mate in Three",
             "fen": "r7/1p1k1p1p/nQ3PnK/4R3/2qN4/1N1p2Bb/4B3/7r w - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "b6d6": [
+                    "d7d6",
+                    "e5d5",
+                    "d6d5",
+                    "e2f3"
+                ]
+            }
         },
         {
             "problemid": 4120,
@@ -49706,7 +50122,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "2k5/1p4R1/3p1pb1/Q1pP1q1p/2P3r1/1P3NB1/R4PKP/4r3 b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f5f3": [
+                    "g2h3",
+                    "g4h4",
+                    "h3h4",
+                    "f3g4"
+                ]
+            }
         },
         {
             "problemid": 4152,
@@ -50139,7 +50562,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "1r6/p4pk1/6p1/3Bp2p/4P3/2P1qPPb/P2R3P/3Q3K b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e3d2": [
+                    "d1d2",
+                    "b8b1",
+                    "d2e1",
+                    "b1e1"
+                ]
+            }
         },
         {
             "problemid": 4183,
@@ -50230,7 +50660,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "5kr1/5pq1/1p1p4/p1pPpP2/P1P1P1nr/5B1p/1P3P1R/3Q2NK b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g4f2": [
+                    "h2f2",
+                    "g7g2",
+                    "f3g2",
+                    "h3g2"
+                ]
+            }
         },
         {
             "problemid": 4190,
@@ -50489,7 +50926,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "4r1k1/7p/p1p5/Pp1bP1P1/3P1Bq1/1P3rP1/2PQ3K/R4R2 b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f3f2": [
+                    "d2f2",
+                    "g4h5",
+                    "h2g1",
+                    "h5h1"
+                ]
+            }
         },
         {
             "problemid": 4209,
@@ -50670,7 +51114,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "4r1k1/pp5p/3Q2p1/2q2p2/5BnP/1P2r3/P1PR2P1/R4K2 b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e3e1": [
+                    "a1e1",
+                    "c5g1",
+                    "f1g1",
+                    "e8e1"
+                ]
+            }
         },
         {
             "problemid": 4222,
@@ -50781,7 +51232,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "6k1/pp3p1p/2p3p1/3p4/1P1P1q2/P4NnP/3Qn1BK/1RR5 b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g3f1": [
+                    "h2h1",
+                    "f4h2",
+                    "f3h2",
+                    "f1g3"
+                ]
+            }
         },
         {
             "problemid": 4230,
@@ -51446,7 +51904,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "8/2q2rbk/R3b1p1/3n3p/3pB2P/Q2P2P1/4P1K1/4N2R b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "d5e3": [
+                    "g2h2",
+                    "c7g3",
+                    "h2g3",
+                    "g7e5"
+                ]
+            }
         },
         {
             "problemid": 4278,
@@ -51551,7 +52016,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "r3r1k1/p1b2pp1/b1pq3p/n7/B7/2P1BN2/P1QN1PPP/3RK2R b K - 0 1",
-            "solutions": {}
+            "solutions": {
+                "e8e3": [
+                    "f2e3",
+                    "d6g3",
+                    "h2g3",
+                    "c7g3"
+                ]
+            }
         },
         {
             "problemid": 4286,
@@ -51698,7 +52170,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "1k6/p5pp/1p1q1p2/2p5/3P1nPP/Q1P2PK1/P3r3/6RR b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f4h5": [
+                    "g3h3",
+                    "d6g3",
+                    "g1g3",
+                    "h5f4"
+                ]
+            }
         },
         {
             "problemid": 4297,
@@ -52162,7 +52641,9 @@
             "solutions": {
                 "h4h3": [
                     "g2h3",
-                    "g4f3"
+                    "g4f3",
+                    "e1e3",
+                    "f4h3"
                 ]
             }
         },
@@ -52176,12 +52657,6 @@
                     "b2a3",
                     "b4c2",
                     "c1c2",
-                    "b7b1"
-                ],
-                "b4c2": [
-                    "c1c2",
-                    "a5a3",
-                    "b2a3",
                     "b7b1"
                 ]
             }
@@ -52376,7 +52851,9 @@
             "solutions": {
                 "h4h3": [
                     "e1g3",
-                    "h3g3"
+                    "h3g3",
+                    "g2f3",
+                    "g3f2"
                 ]
             }
         },
@@ -52430,7 +52907,9 @@
             "solutions": {
                 "c5c3": [
                     "h3c3",
-                    "b4c3"
+                    "b4c3",
+                    "e4a8",
+                    "a2a1"
                 ]
             }
         },
@@ -52439,7 +52918,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "r1q3k1/ppp3r1/3p4/3Pp2p/1PP1Pp2/P2NnnpP/1R2Q3/2N2BRK b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "g3g2": [
+                    "f1g2",
+                    "c8h3",
+                    "g2h3",
+                    "g7g1"
+                ]
+            }
         },
         {
             "problemid": 4350,
@@ -52786,13 +53272,13 @@
                 "g2g1q": [
                     "e3g1",
                     "h1f3",
-                    "g3h2",
+                    "g3h4",
                     "f3f4"
                 ],
                 "g2g1r": [
                     "e3g1",
                     "h1f3",
-                    "g3h2",
+                    "g3h4",
                     "f3f4"
                 ]
             }
@@ -53110,7 +53596,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "r1b2r1k/pppp2pp/8/4N3/1PBn3q/2Q5/P2N1nPP/R1B1KR2 b Q - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f2d3": [
+                    "e1d1",
+                    "h4e1",
+                    "f1e1",
+                    "d3f2"
+                ]
+            }
         },
         {
             "problemid": 4398,
@@ -53229,7 +53722,14 @@
             "first": "Black to Move",
             "type": "Mate in Three",
             "fen": "7k/pbp3bp/3p4/1p5q/3n2p1/5rB1/PP1NrN1P/1Q1BRRK1 b - - 0 1",
-            "solutions": {}
+            "solutions": {
+                "f3g3": [
+                    "h2g3",
+                    "h5h1",
+                    "f2h1",
+                    "e2g2"
+                ]
+            }
         },
         {
             "problemid": 4407,

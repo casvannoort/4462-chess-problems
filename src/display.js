@@ -302,9 +302,11 @@ function loadProblem(problem, useAnimation = true) {
   updateTitle(problem.problemid, moveCount, colorIndicator);
   updateProblemInput(problem.problemid);
 
-  state.board.setPosition(problem.fen, useAnimation);
-
   const turnColor = getTurnColor(state.game) === 'w' ? COLOR.white : COLOR.black;
+
+  // Set board orientation based on whose turn it is
+  state.board.setOrientation(turnColor);
+  state.board.setPosition(problem.fen, useAnimation);
   state.board.enableMoveInput(inputHandler, turnColor);
 }
 
