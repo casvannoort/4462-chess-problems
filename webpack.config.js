@@ -83,6 +83,8 @@ module.exports = {
             patterns: [
                 { from: 'public/puzzles', to: 'puzzles' },
                 { from: 'public/fonts', to: 'fonts' },
+                { from: 'icons', to: 'icons' },
+                { from: 'manifest.json', to: 'manifest.json' },
             ],
         }),
     ],

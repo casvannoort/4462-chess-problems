@@ -132,6 +132,15 @@ def solve_puzzle(puzzle_data):
             pgn_first_move = pgn_moves[0] if pgn_moves else None
             pgn_continuation = pgn_moves[1:] if len(pgn_moves) > 1 else []
 
+            def add_line_to_tree(tree, moves):
+                """Add a move sequence to the solution tree."""
+                if not moves:
+                    return
+                move = moves[0]
+                if move not in tree:
+                    tree[move] = {}
+                add_line_to_tree(tree[move], moves[1:])
+
             for pv_info in info:
                 score = pv_info.get("score")
                 if score and score.is_mate():
@@ -144,11 +153,38 @@ def solve_puzzle(puzzle_data):
                             # Prefer polgar.pgn continuation if this is the original first move
                             # AND the PGN has correct length (some PGN entries are incomplete)
                             if first == pgn_first_move and len(pgn_continuation) == expected_cont_len:
-                                continuation = pgn_continuation
+                                line = [first] + pgn_continuation
                             else:
-                                continuation = [m.uci() for m in pv[1:]]
+                                line = [m.uci() for m in pv]
 
-                            solutions[first] = continuation
+                            add_line_to_tree(solutions, line)
+
+            # Check for alternative promotions on final move that also result in checkmate
+            def find_alt_promotions(tree, path, current_board):
+                """Recursively find alternative promotions that result in checkmate."""
+                for move, subtree in list(tree.items()):
+                    if not subtree:
+                        # Terminal node - check if we can add alternative promotions
+                        if len(move) == 5:  # Promotion move
+                            base_move = move[:4]
+                            current_promo = move[4]
+                            for promo in ['q', 'r', 'b', 'n']:
+                                if promo != current_promo:
+                                    alt_move = base_move + promo
+                                    if alt_move not in tree:
+                                        try:
+                                            test_board = current_board.copy()
+                                            test_board.push_uci(alt_move)
+                                            if test_board.is_checkmate():
+                                                tree[alt_move] = {}
+                                        except:
+                                            pass
+                    else:
+                        new_board = current_board.copy()
+                        new_board.push_uci(move)
+                        find_alt_promotions(subtree, path + [move], new_board)
+
+            find_alt_promotions(solutions, [], board)
 
         return {
             "problemid": problemid,
@@ -238,19 +274,24 @@ def main():
             errors.append(f"Puzzle {pid}: No solutions found")
             continue
 
-        # Check: continuation length matches expected
-        # Expected: (mate_count - 1) * 2 moves (opponent + player alternating)
-        expected_continuation_len = (mate_count - 1) * 2 if mate_count else 0
+        # Check: tree depth matches expected
+        # Expected depth: mate_count * 2 - 1 (first move + alternating moves)
+        expected_depth = mate_count * 2 - 1 if mate_count else 0
 
-        for first_move, continuation in solutions.items():
-            if len(continuation) != expected_continuation_len:
-                # Stockfish found a shorter mate - update the type
-                actual_mate = len(continuation) // 2 + 1
-                number_words = {1: "One", 2: "Two", 3: "Three", 4: "Four"}
-                p["type"] = f"Mate in {number_words.get(actual_mate, actual_mate)} (Book: {mate_count})"
-                warnings.append(
-                    f"Puzzle {pid}: Labeled mate in {mate_count}, but found mate in {actual_mate}"
-                )
+        def get_tree_depth(tree, depth=0):
+            """Get the depth of the solution tree."""
+            if not tree:
+                return depth
+            return max(get_tree_depth(subtree, depth + 1) for subtree in tree.values())
+
+        actual_depth = get_tree_depth(solutions)
+        if actual_depth != expected_depth:
+            actual_mate = (actual_depth + 1) // 2
+            number_words = {1: "One", 2: "Two", 3: "Three", 4: "Four"}
+            p["type"] = f"Mate in {number_words.get(actual_mate, actual_mate)} (Book: {mate_count})"
+            warnings.append(
+                f"Puzzle {pid}: Labeled mate in {mate_count}, but found mate in {actual_mate}"
+            )
 
     # Report results
     if errors:

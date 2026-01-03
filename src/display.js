@@ -33,11 +33,24 @@ function isPromotionMove(game, from, to) {
   return targetRank === '8' || targetRank === '1';
 }
 
+// --- Tree Navigation Helpers ---
+
+function isTerminalNode(tree) {
+  return tree && Object.keys(tree).length === 0;
+}
+
+function getFirstMove(tree) {
+  const moves = Object.keys(tree);
+  return moves.length > 0 ? moves[0] : null;
+}
+
 // --- Move Execution ---
 
 function makeOpponentMove() {
-  // correctMoves are now in UCI format: "e6f6", "e7e8q"
-  const move = state.correctMoves[0];
+  // Get the first (and typically only) opponent response from current tree level
+  const move = getFirstMove(state.solutionTree);
+  if (!move) return;
+
   const source = move.slice(0, 2);
   const target = move.slice(2, 4);
   const promotion = move.length > 4 ? move[4] : undefined;
@@ -46,32 +59,12 @@ function makeOpponentMove() {
   state.board.movePiece(source, target, true).then(() => {
     // Update board position to show promoted piece
     state.board.setPosition(state.game.fen(), false);
-    state.correctMoves.shift();
+    // Navigate deeper into the tree
+    setState({ solutionTree: state.solutionTree[move] });
   });
 }
 
 // --- Input Handler ---
-
-function handlePromotionSelection(src, tgt, expectedPromotion, selectedPromotion, isLastMove) {
-  // Check if user selected the correct piece
-  if (selectedPromotion !== expectedPromotion) {
-    showQuote(false);
-    // Reset board to current position (piece goes back)
-    state.board.setPosition(state.game.fen(), false);
-    return;
-  }
-
-  // Correct promotion piece selected
-  state.game.move({ from: src, to: tgt, promotion: selectedPromotion });
-  state.correctMoves.shift();
-  state.board.setPosition(state.game.fen(), true);
-
-  if (isLastMove) {
-    onPuzzleSolved();
-  } else {
-    setTimeout(makeOpponentMove, 500);
-  }
-}
 
 function inputHandler(event) {
   if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
@@ -94,13 +87,12 @@ function inputHandler(event) {
       }
       state.game.undo();
 
-      // --- FIRST MOVE: check against all valid solutions ---
-      if (state.isFirstMove) {
-        // Build UCI move string (e.g., "d5c3" or "e7e8q" for promotion)
-        const userMoveBase = src + tgt;
+      // Build UCI move string
+      const userMoveBase = src + tgt;
 
+      // --- FIRST MOVE: check against solution tree root ---
+      if (state.isFirstMove) {
         if (isPromotionMove(state.game, src, tgt)) {
-          // Show promotion dialog for first move
           const turnColor = getTurnColor(state.game) === 'w' ? COLOR.white : COLOR.black;
           state.board.showPromotionDialog(tgt, turnColor, (result) => {
             if (result.type === PROMOTION_DIALOG_RESULT_TYPE.pieceSelected) {
@@ -108,15 +100,15 @@ function inputHandler(event) {
               const userMove = userMoveBase + selectedPromotion;
 
               if (state.solutions[userMove]) {
-                // Valid first move with promotion
                 state.game.move({ from: src, to: tgt, promotion: selectedPromotion });
+                const nextTree = state.solutions[userMove];
                 setState({
-                  correctMoves: [...state.solutions[userMove]],
+                  solutionTree: nextTree,
                   isFirstMove: false,
                 });
                 state.board.setPosition(state.game.fen(), true);
 
-                if (state.correctMoves.length === 0) {
+                if (isTerminalNode(nextTree)) {
                   onPuzzleSolved();
                 } else {
                   setTimeout(makeOpponentMove, 500);
@@ -134,15 +126,14 @@ function inputHandler(event) {
 
         // Non-promotion first move
         if (state.solutions[userMoveBase]) {
-          // Valid first move
           state.game.move({ from: src, to: tgt });
+          const nextTree = state.solutions[userMoveBase];
           setState({
-            correctMoves: [...state.solutions[userMoveBase]],
+            solutionTree: nextTree,
             isFirstMove: false,
           });
 
-          if (state.correctMoves.length === 0) {
-            // Mate in 1 - solved immediately
+          if (isTerminalNode(nextTree)) {
             state.board.setPosition(state.game.fen(), true);
             onPuzzleSolved();
             return false;
@@ -156,33 +147,43 @@ function inputHandler(event) {
         }
       }
 
-      // --- SUBSEQUENT MOVES: validate against correctMoves ---
-      if (!state.correctMoves || state.correctMoves.length === 0) {
+      // --- SUBSEQUENT MOVES: validate against current tree level ---
+      if (!state.solutionTree) {
         return false;
       }
 
-      const nextExpected = state.correctMoves[0];
-      const expectedSrc = nextExpected.slice(0, 2);
-      const expectedTgt = nextExpected.slice(2, 4);
-      const expectedPromotion = nextExpected.length > 4 ? nextExpected[4] : null;
-      const isLastMove = state.correctMoves.length === 1;
+      // Check if this is a valid move in the tree
+      const validMoves = Object.keys(state.solutionTree);
+      const isLastMove = validMoves.every(m => isTerminalNode(state.solutionTree[m]));
 
       if (isPromotionMove(state.game, src, tgt)) {
-        if (isLastMove && !wouldBeCheckmate(state.game.fen(), src, tgt, expectedPromotion || 'q')) {
-          showQuote(false);
-          return false;
-        }
-
-        if (!isLastMove && (src !== expectedSrc || tgt !== expectedTgt)) {
-          showQuote(false);
-          return false;
-        }
-
         const turnColor = getTurnColor(state.game) === 'w' ? COLOR.white : COLOR.black;
         state.board.showPromotionDialog(tgt, turnColor, (result) => {
           if (result.type === PROMOTION_DIALOG_RESULT_TYPE.pieceSelected) {
             const selectedPromotion = result.piece.charAt(1);
-            handlePromotionSelection(src, tgt, expectedPromotion || selectedPromotion, selectedPromotion, isLastMove);
+            const userMove = userMoveBase + selectedPromotion;
+
+            // For final moves, accept any promotion that results in checkmate
+            if (isLastMove) {
+              if (state.solutionTree[userMove] || wouldBeCheckmate(state.game.fen(), src, tgt, selectedPromotion)) {
+                state.game.move({ from: src, to: tgt, promotion: selectedPromotion });
+                state.board.setPosition(state.game.fen(), true);
+                onPuzzleSolved();
+              } else {
+                showQuote(false);
+                state.board.setPosition(state.game.fen(), false);
+              }
+            } else {
+              if (state.solutionTree[userMove]) {
+                state.game.move({ from: src, to: tgt, promotion: selectedPromotion });
+                setState({ solutionTree: state.solutionTree[userMove] });
+                state.board.setPosition(state.game.fen(), true);
+                setTimeout(makeOpponentMove, 500);
+              } else {
+                showQuote(false);
+                state.board.setPosition(state.game.fen(), false);
+              }
+            }
           } else {
             state.board.setPosition(state.game.fen(), false);
           }
@@ -192,26 +193,26 @@ function inputHandler(event) {
 
       // Non-promotion subsequent move
       if (isLastMove) {
-        if (!wouldBeCheckmate(state.game.fen(), src, tgt, null)) {
+        // Accept any move that results in checkmate
+        if (state.solutionTree[userMoveBase] || wouldBeCheckmate(state.game.fen(), src, tgt, null)) {
+          state.game.move({ from: src, to: tgt });
+          state.board.setPosition(state.game.fen(), true);
+          onPuzzleSolved();
+          return false;
+        } else {
           showQuote(false);
           return false;
         }
-
-        state.game.move({ from: src, to: tgt });
-        state.correctMoves.shift();
-        state.board.setPosition(state.game.fen(), true);
-        onPuzzleSolved();
-        return false;
       } else {
-        if (src !== expectedSrc || tgt !== expectedTgt) {
+        if (state.solutionTree[userMoveBase]) {
+          state.game.move({ from: src, to: tgt });
+          setState({ solutionTree: state.solutionTree[userMoveBase] });
+          setTimeout(makeOpponentMove, 500);
+          return true;
+        } else {
           showQuote(false);
           return false;
         }
-
-        state.game.move({ from: src, to: tgt, promotion: expectedPromotion });
-        state.correctMoves.shift();
-        setTimeout(makeOpponentMove, 500);
-        return true;
       }
     } catch (error) {
       console.error("Move validation error:", error);
@@ -289,8 +290,8 @@ function loadProblem(problem, useAnimation = true) {
   setState({
     currentProblemId: problem.problemid,
     game: createGame(problem.fen),
-    solutions: problem.solutions,  // { "d5c3": ["e6f6", "e8f8"], ... }
-    correctMoves: null,            // Set after user's first move
+    solutions: problem.solutions,  // Tree: { "move": { "opp": { "mate": {} } } }
+    solutionTree: null,            // Set after user's first move
     isFirstMove: true,
   });
 
