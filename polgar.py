@@ -65,6 +65,45 @@ def extract_pgn_moves(game: chess.pgn.Game) -> list[str]:
     return moves
 
 
+def add_line_to_tree(tree: dict, moves: list[str]) -> None:
+    """Add a move sequence to the solution tree."""
+    if not moves:
+        return
+    move = moves[0]
+    if move not in tree:
+        tree[move] = {}
+    add_line_to_tree(tree[move], moves[1:])
+
+
+def find_alt_promotions(
+    tree: dict, current_board: chess.Board, path: list[str] | None = None
+) -> None:
+    """Recursively find alternative promotions that result in checkmate."""
+    if path is None:
+        path = []
+    for move, subtree in list(tree.items()):
+        if not subtree:
+            # Terminal node - check if we can add alternative promotions
+            if len(move) == 5:  # Promotion move
+                base_move = move[:4]
+                current_promo = move[4]
+                for promo in ['q', 'r', 'b', 'n']:
+                    if promo != current_promo:
+                        alt_move = base_move + promo
+                        if alt_move not in tree:
+                            try:
+                                test_board = current_board.copy()
+                                test_board.push_uci(alt_move)
+                                if test_board.is_checkmate():
+                                    tree[alt_move] = {}
+                            except (ValueError, chess.InvalidMoveError):
+                                pass
+        else:
+            new_board = current_board.copy()
+            new_board.push_uci(move)
+            find_alt_promotions(subtree, new_board, path + [move])
+
+
 # Type alias for puzzle data tuple
 PuzzleData = tuple[int, str, str, str, int | None, list[str]]
 
@@ -137,15 +176,6 @@ def solve_puzzle(puzzle_data: PuzzleData) -> dict[str, Any]:
             pgn_first_move = pgn_moves[0] if pgn_moves else None
             pgn_continuation = pgn_moves[1:] if len(pgn_moves) > 1 else []
 
-            def add_line_to_tree(tree, moves):
-                """Add a move sequence to the solution tree."""
-                if not moves:
-                    return
-                move = moves[0]
-                if move not in tree:
-                    tree[move] = {}
-                add_line_to_tree(tree[move], moves[1:])
-
             for pv_info in info:
                 score = pv_info.get("score")
                 if score and score.is_mate():
@@ -165,31 +195,7 @@ def solve_puzzle(puzzle_data: PuzzleData) -> dict[str, Any]:
                             add_line_to_tree(solutions, line)
 
             # Check for alternative promotions on final move that also result in checkmate
-            def find_alt_promotions(tree, path, current_board):
-                """Recursively find alternative promotions that result in checkmate."""
-                for move, subtree in list(tree.items()):
-                    if not subtree:
-                        # Terminal node - check if we can add alternative promotions
-                        if len(move) == 5:  # Promotion move
-                            base_move = move[:4]
-                            current_promo = move[4]
-                            for promo in ['q', 'r', 'b', 'n']:
-                                if promo != current_promo:
-                                    alt_move = base_move + promo
-                                    if alt_move not in tree:
-                                        try:
-                                            test_board = current_board.copy()
-                                            test_board.push_uci(alt_move)
-                                            if test_board.is_checkmate():
-                                                tree[alt_move] = {}
-                                        except (ValueError, chess.InvalidMoveError):
-                                            pass
-                    else:
-                        new_board = current_board.copy()
-                        new_board.push_uci(move)
-                        find_alt_promotions(subtree, path + [move], new_board)
-
-            find_alt_promotions(solutions, [], board)
+            find_alt_promotions(solutions, board)
 
         return {
             "problemid": problemid,
