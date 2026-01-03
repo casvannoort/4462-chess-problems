@@ -5,7 +5,7 @@
 import { state, setState } from "./state.js";
 import { initUrlParameters, pushState, getInitialProblemId } from "./router.js";
 import { getProblem, getTotalProblems, preloadAdjacent } from "./puzzleLoader.js";
-import { cacheElements, getElements, showQuote, showSolvedState, setNextButtonHandler } from "./ui.js";
+import { cacheElements, getElements, showQuote, showSolvedState, setNextButtonHandler, announce } from "./ui.js";
 
 import { createBoard } from "./board.js";
 import { createInputHandler } from "./moveHandler.js";
@@ -26,6 +26,7 @@ function onPuzzleSolved() {
   showSolvedState();
   setNextButtonHandler(nextProblem);
   showQuote(true);
+  announce("Opgelost! Druk op spatie of pijltje rechts voor de volgende puzzel");
   state.board.disableMoveInput();
 }
 

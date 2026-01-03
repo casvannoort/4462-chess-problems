@@ -12,6 +12,7 @@ import {
   getProblemInputValue,
   setGoButtonHandler,
   setProblemInputHandler,
+  announce,
 } from "./ui.js";
 
 let totalProblems = 4462;
@@ -118,6 +119,7 @@ function loadProblem(problem, useAnimation = true) {
 
   updateTitle(problem.problemid, moveCount, colorIndicator);
   updateProblemInput(problem.problemid);
+  announce(`Puzzel ${problem.problemid}, mat in ${moveCount}, ${colorIndicator} aan zet`);
 
   const turnColor = getTurnColor(state.game) === 'w' ? COLOR.white : COLOR.black;
 

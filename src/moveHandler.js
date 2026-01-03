@@ -4,7 +4,7 @@ import { PROMOTION_DIALOG_RESULT_TYPE } from "cm-chessboard/src/extensions/promo
 
 import { state, setState } from "./state.js";
 import { wouldBeCheckmate, getTurnColor } from "./game.js";
-import { showQuote } from "./ui.js";
+import { showQuote, announce } from "./ui.js";
 
 // --- Tree Navigation Helpers ---
 
@@ -119,6 +119,7 @@ function createInputHandler(onPuzzleSolved) {
                   }
                 } else {
                   showQuote(false);
+                  announce("Fout, probeer opnieuw");
                   state.board.setPosition(state.game.fen(), false);
                 }
               } else {
@@ -147,6 +148,7 @@ function createInputHandler(onPuzzleSolved) {
             }
           } else {
             showQuote(false);
+            announce("Fout, probeer opnieuw");
             return false;
           }
         }
@@ -173,6 +175,7 @@ function createInputHandler(onPuzzleSolved) {
                   onPuzzleSolved();
                 } else {
                   showQuote(false);
+                  announce("Fout, probeer opnieuw");
                   state.board.setPosition(state.game.fen(), false);
                 }
               } else {
@@ -183,6 +186,7 @@ function createInputHandler(onPuzzleSolved) {
                   setTimeout(makeOpponentMove, 500);
                 } else {
                   showQuote(false);
+                  announce("Fout, probeer opnieuw");
                   state.board.setPosition(state.game.fen(), false);
                 }
               }
@@ -202,6 +206,7 @@ function createInputHandler(onPuzzleSolved) {
             return false;
           } else {
             showQuote(false);
+            announce("Fout, probeer opnieuw");
             return false;
           }
         } else {
@@ -212,6 +217,7 @@ function createInputHandler(onPuzzleSolved) {
             return true;
           } else {
             showQuote(false);
+            announce("Fout, probeer opnieuw");
             return false;
           }
         }

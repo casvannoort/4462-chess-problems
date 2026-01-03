@@ -12,6 +12,7 @@ import { DOM_IDS } from "./constants.js";
  * @property {HTMLElement} goBtn
  * @property {HTMLElement} quoteToast
  * @property {HTMLElement} quoteText
+ * @property {HTMLElement} srAnnounce
  */
 
 /** @type {CachedElements|null} */
@@ -32,6 +33,7 @@ function cacheElements() {
     goBtn: document.getElementById(DOM_IDS.GO_BTN),
     quoteToast: document.getElementById(DOM_IDS.QUOTE_TOAST),
     quoteText: document.getElementById(DOM_IDS.QUOTE_TEXT),
+    srAnnounce: document.getElementById(DOM_IDS.SR_ANNOUNCE),
   };
   return elements;
 }
@@ -78,6 +80,17 @@ function showError(message) {
     setTimeout(() => {
       quoteToast.dataset.visible = "false";
     }, 4000);
+  }
+}
+
+/**
+ * Announce message to screen readers
+ * @param {string} message - Message to announce
+ */
+function announce(message) {
+  const { srAnnounce } = getElements();
+  if (srAnnounce) {
+    srAnnounce.textContent = message;
   }
 }
 
@@ -186,6 +199,7 @@ export {
   getElements,
   showQuote,
   showError,
+  announce,
   updateTitle,
   showSolvedState,
   showPuzzleNav,

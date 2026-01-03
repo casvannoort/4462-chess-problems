@@ -6,12 +6,17 @@ Of these, 4,462 are checkmate problems. You can play through them [here](http://
 
 If you'd like to use these problems for your own project, simply download [problems.json](https://raw.githubusercontent.com/denialromeo/4462-chess-problems/master/problems.json). Enjoy!
 
-To run this locally, run the below and then open `index.html` in your browser.
+To run this locally:
 
+```bash
+make run    # Builds and serves at http://localhost:3000
 ```
-npm install
-npm start
-```
+
+### Keyboard Shortcuts
+
+- **←** Previous puzzle
+- **→** Next puzzle
+- **Space** Next puzzle (after solving)
 
 ### Possible Errors in Book
 

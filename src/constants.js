@@ -9,6 +9,7 @@ export const DOM_IDS = {
   GO_BTN: "go-btn",
   QUOTE_TOAST: "quote-toast",
   QUOTE_TEXT: "quote-text",
+  SR_ANNOUNCE: "sr-announce",
 };
 
 // Local storage keys
