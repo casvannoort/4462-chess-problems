@@ -10,11 +10,13 @@ Usage: python polgar.py > problems.json
 
 import chess
 import chess.engine
+import chess.pgn
 import json
 import sys
 import os
 import argparse
 import multiprocessing
+from typing import Any
 from chess.pgn import read_game
 from dotenv import load_dotenv
 
@@ -26,7 +28,7 @@ STOCKFISH_PATH = os.getenv("STOCKFISH_PATH", "stockfish")
 NUM_WORKERS = max(1, multiprocessing.cpu_count() - 1)
 
 
-def parse_mate_count(move_type):
+def parse_mate_count(move_type: str) -> int | None:
     """Extract mate count from type like 'Mate in two' -> 2."""
     words = move_type.lower().split()
     number_words = {
@@ -41,7 +43,7 @@ def parse_mate_count(move_type):
     return None
 
 
-def title_case(s):
+def title_case(s: str) -> str:
     """Convert 'Mate in one' to 'Mate in One' (preserving lowercase 'in', 'to')."""
     words = s.split()
     result = []
@@ -53,7 +55,7 @@ def title_case(s):
     return " ".join(result)
 
 
-def extract_pgn_moves(game):
+def extract_pgn_moves(game: chess.pgn.Game) -> list[str]:
     """Extract mainline moves from PGN game as UCI strings."""
     moves = []
     board = game.board()
@@ -63,7 +65,10 @@ def extract_pgn_moves(game):
     return moves
 
 
-def solve_puzzle(puzzle_data):
+# Type alias for puzzle data tuple
+PuzzleData = tuple[int, str, str, str, int | None, list[str]]
+
+def solve_puzzle(puzzle_data: PuzzleData) -> dict[str, Any]:
     """Worker function: solve a single puzzle with its own Stockfish instance.
 
     Uses iterative deepening: starts shallow and only goes deeper if needed.
@@ -198,7 +203,7 @@ def solve_puzzle(puzzle_data):
         engine.quit()
 
 
-def extract_puzzles_from_pgn(pgn_path, start, end):
+def extract_puzzles_from_pgn(pgn_path: str, start: int, end: int) -> list[PuzzleData]:
     """Extract puzzle metadata from PGN file (sequential)."""
     puzzles = []
 
@@ -233,7 +238,7 @@ def extract_puzzles_from_pgn(pgn_path, start, end):
     return puzzles
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Solve chess problems from polgar.pgn")
     parser.add_argument("--pgn", default="polgar.pgn", help="Path to PGN file")
     parser.add_argument("--start", type=int, default=1, help="Start problem ID (inclusive)")
